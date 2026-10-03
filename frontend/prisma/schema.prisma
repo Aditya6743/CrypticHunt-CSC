@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Team {
+  id            String          @id @default(uuid())
+  teamId        String          @unique
+  teamName      String
+  leaderName    String
+  leaderEmail   String          @unique
+  contactNumber String
+  college       String
+  passwordHash  String
+  createdAt     DateTime        @default(now())
+  status        String          @default("ACTIVE")
+  score         Int             @default(0)
+  currentLevel  Int             @default(1)
+  hintUsages    HintUsage[]
+  progress      LevelProgress[]
+  reports       Report[]
+  submissions   Submission[]
+  members       TeamMember[]
+}
+
+model TeamMember {
+  id     String @id @default(uuid())
+  teamId String
+  name   String
+  team   Team   @relation(fields: [teamId], references: [id])
+}
+
+model Level {
+  id                 String           @id @default(uuid())
+  levelNumber        Int              @unique
+  title              String
+  description        String
+  category           String
+  difficulty         String
+  points             Int
+  active             Boolean          @default(true)
+  answerMatchingMode String           @default("EXACT")
+  createdAt          DateTime         @default(now())
+  answers            AcceptedAnswer[]
+  hints              Hint[]
+  hintUsages         HintUsage[]
+  progress           LevelProgress[]
+  submissions        Submission[]
+}
+
+model AcceptedAnswer {
+  id      String @id @default(uuid())
+  levelId String
+  answer  String
+  level   Level  @relation(fields: [levelId], references: [id])
+}
+
+model Hint {
+  id         String      @id @default(uuid())
+  levelId    String
+  hintNumber Int
+  content    String
+  penalty    Int
+  level      Level       @relation(fields: [levelId], references: [id])
+  usages     HintUsage[]
+}
+
+model Submission {
+  id              String   @id @default(uuid())
+  teamId          String
+  levelId         String
+  submittedAnswer String
+  correct         Boolean
+  timestamp       DateTime @default(now())
+  level           Level    @relation(fields: [levelId], references: [id])
+  team            Team     @relation(fields: [teamId], references: [id])
+}
+
+model LevelProgress {
+  id            String   @id @default(uuid())
+  teamId        String
+  levelId       String
+  completed     Boolean  @default(false)
+  pointsAwarded Int      @default(0)
+  completedAt   DateTime @default(now())
+  level         Level    @relation(fields: [levelId], references: [id])
+  team          Team     @relation(fields: [teamId], references: [id])
+}
+
+model HintUsage {
+  id      String   @id @default(uuid())
+  teamId  String
+  levelId String
+  hintId  String
+  penalty Int
+  usedAt  DateTime @default(now())
+  hint    Hint     @relation(fields: [hintId], references: [id])
+  level   Level    @relation(fields: [levelId], references: [id])
+  team    Team     @relation(fields: [teamId], references: [id])
+}
+
+model Event {
+  id                String    @id @default(uuid())
+  status            String    @default("NOT_STARTED")
+  startTime         DateTime?
+  endTime           DateTime?
+  leaderboardFrozen Boolean   @default(false)
+}
+
+model Report {
+  id        String   @id @default(uuid())
+  teamId    String
+  levelId   String?
+  message   String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+  team      Team     @relation(fields: [teamId], references: [id])
+}
+
+model Admin {
+  id           String @id @default(uuid())
+  username     String @unique
+  passwordHash String
+}

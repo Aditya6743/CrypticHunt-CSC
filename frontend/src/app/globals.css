@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+:root {
+  --background: #05070B;
+  --foreground: #e2e8f0;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* Anti-Copy Protection */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, 
+textarea, 
+.selectable {
+  user-select: text !important;
+  -webkit-user-select: text !important;
+}
