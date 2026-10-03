@@ -57,7 +57,9 @@ export default function Login() {
             <label className="block text-cyan-500 text-xs tracking-widest mb-2">PASSWORD</label>
             <div className="relative">
               <input 
-                type={showPassword ? "text" : "password"} 
+                type={showPassword ? "text" : "password"}
+                autoComplete="new-password"
+                spellCheck="false" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:border-cyan-500 transition-colors pr-12"

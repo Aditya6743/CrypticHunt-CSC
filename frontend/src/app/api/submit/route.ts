@@ -28,6 +28,10 @@ export async function POST(req: Request) {
     if (!event || event.status !== "LIVE") {
       return NextResponse.json({ error: "Submissions are currently disabled (Event is not LIVE)." }, { status: 403 });
     }
+    
+    if (event.endTime && new Date() > event.endTime) {
+      return NextResponse.json({ error: "The event has officially ended. Time is up!" }, { status: 403 });
+    }
 
     const team = await prisma.team.findUnique({
       where: { id: (session.user as any).id }
@@ -74,10 +78,17 @@ export async function POST(req: Request) {
       const totalPenalty = hintUsages._sum.penalty || 0;
       const pointsAwarded = Math.max(0, level.points - totalPenalty); // Don't let score drop below 0 for a level
 
+      // Find the actual next active level in case of gaps
+      const nextLevel = await prisma.level.findFirst({
+        where: { active: true, levelNumber: { gt: level.levelNumber } },
+        orderBy: { levelNumber: 'asc' }
+      });
+      const nextLevelNumber = nextLevel ? nextLevel.levelNumber : team.currentLevel + 1;
+
       await prisma.team.update({
         where: { id: team.id },
         data: {
-          currentLevel: team.currentLevel + 1,
+          currentLevel: nextLevelNumber,
           score: team.score + pointsAwarded
         }
       });

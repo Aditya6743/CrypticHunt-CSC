@@ -3,9 +3,31 @@ import { prisma } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
 export async function deleteLevel(id: string) {
+  const levelToDelete = await prisma.level.findUnique({ where: { id } });
+  if (!levelToDelete) return;
+  const levelNum = levelToDelete.levelNumber;
+
+  // Cascading deletes manually to prevent foreign key constraint errors
+  await prisma.submission.deleteMany({ where: { levelId: id } });
+  await prisma.levelProgress.deleteMany({ where: { levelId: id } });
+  await prisma.hintUsage.deleteMany({ where: { levelId: id } });
   await prisma.acceptedAnswer.deleteMany({ where: { levelId: id } });
   await prisma.hint.deleteMany({ where: { levelId: id } });
+  
   await prisma.level.delete({ where: { id } });
+  
+  // Rescue any teams currently stationed on the deleted level by jumping them forward
+  const nextLevel = await prisma.level.findFirst({
+    where: { active: true, levelNumber: { gt: levelNum } },
+    orderBy: { levelNumber: 'asc' }
+  });
+  const jumpTo = nextLevel ? nextLevel.levelNumber : levelNum + 1;
+  
+  await prisma.team.updateMany({
+    where: { currentLevel: levelNum },
+    data: { currentLevel: jumpTo }
+  });
+
   revalidatePath("/admin/levels");
 }
 

@@ -20,6 +20,7 @@ model Team {
   status        String          @default("ACTIVE")
   score         Int             @default(0)
   currentLevel  Int             @default(1)
+  activeLoginToken String?       // Concurrency Control
   hintUsages    HintUsage[]
   progress      LevelProgress[]
   reports       Report[]
@@ -108,6 +109,7 @@ model Event {
   status            String    @default("NOT_STARTED")
   startTime         DateTime?
   endTime           DateTime?
+  haltedAt          DateTime?
   leaderboardFrozen Boolean   @default(false)
 }
 

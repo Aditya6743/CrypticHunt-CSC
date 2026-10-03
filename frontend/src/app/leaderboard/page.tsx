@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
+import LiveRefresh from "@/components/LiveRefresh";
+import ParticipantNavbar from "@/components/ParticipantNavbar";
 
 export const dynamic = "force-dynamic";
 
@@ -29,16 +31,23 @@ export default async function Leaderboard() {
   });
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-gray-100 font-mono p-4 md:p-8 relative">
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
-      <div className="max-w-4xl mx-auto z-10 relative mt-24">
-        <div className="flex justify-between items-end mb-8 border-b border-cyan-900/50 pb-4">
-          <div>
-            <h1 className="text-3xl font-bold text-cyan-500 tracking-widest uppercase">Leaderboard</h1>
-            <p className="text-sm text-gray-500 mt-2 tracking-widest">LIVE RANKINGS // REAL-TIME</p>
+    <>
+      <LiveRefresh interval={10000} />
+      <div className="min-h-screen bg-[#030407] text-gray-200 font-sans selection:bg-cyan-500/30 pb-20 relative">
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
+      </div>
+      <ParticipantNavbar activePage="leaderboard" />
+      <div className="max-w-4xl mx-auto z-10 relative mt-8 pb-20 px-4 sm:px-6">
+        <div className="mb-8 border-b border-cyan-900/50 pb-4">
+          <div className="flex justify-between items-end">
+            <div>
+              <h1 className="text-3xl font-bold text-cyan-500 tracking-widest uppercase">Leaderboard</h1>
+              <p className="text-sm text-gray-500 mt-2 tracking-widest">LIVE RANKINGS // REAL-TIME</p>
+            </div>
           </div>
-          <Link href="/dashboard" className="px-4 py-2 border border-cyan-800 text-cyan-400 hover:bg-cyan-900/30 transition-all text-xs tracking-widest">[ DASHBOARD ]</Link>
         </div>
+          
 
         <div className="bg-[#0a0e17] border border-cyan-900/30 p-1 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
           <table className="w-full text-left border-collapse">
@@ -74,5 +83,6 @@ export default async function Leaderboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

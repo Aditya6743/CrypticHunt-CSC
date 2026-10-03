@@ -25,21 +25,16 @@ export async function POST(req: Request) {
     const nextHint = level.hints.find(h => !unlockedHintIds.includes(h.id));
     if (!nextHint) return NextResponse.json({ error: "No more hints available." }, { status: 404 });
 
-    // Record usage and deduct penalty from team score immediately
-    await prisma.$transaction([
-      prisma.hintUsage.create({
-        data: {
-          teamId: team.id,
-          levelId: level.id,
-          hintId: nextHint.id,
-          penalty: nextHint.penalty
-        }
-      }),
-      prisma.team.update({
-        where: { id: team.id },
-        data: { score: { decrement: nextHint.penalty } }
-      })
-    ]);
+    // Record usage. We DO NOT deduct from team.score immediately here to avoid negative global scores.
+    // The penalty is subtracted from the level's final reward when they submit the correct answer.
+    await prisma.hintUsage.create({
+      data: {
+        teamId: team.id,
+        levelId: level.id,
+        hintId: nextHint.id,
+        penalty: nextHint.penalty
+      }
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {

@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import TimeElapsed from "@/components/TimeElapsed";
+import TimeRemaining from "@/components/TimeRemaining";
 
-export default function ClientLevel({ level, team, unlockedHints, nextHintPenalty, startTime }: { level: any, team: any, unlockedHints: any[], nextHintPenalty: number | null, startTime: any }) {
+export default function ClientLevel({ level, team, unlockedHints, nextHintPenalty, endTime, haltedAt, isLive }: { level: any, team: any, unlockedHints: any[], nextHintPenalty: number | null, endTime: any, haltedAt: any, isLive: boolean }) {
   const [answer, setAnswer] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "error" | "success">("idle");
   const [message, setMessage] = useState("");
@@ -90,21 +90,25 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
 
       <div className="z-10 w-full max-w-6xl mx-auto flex-1 flex flex-col">
-        <header className="border-b border-cyan-900/50 pb-6 mb-8 flex justify-between items-end">
-          <div>
-            <h1 className="text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest text-glow">PROTOCOL {level.levelNumber}</h1>
-            <p className="text-gray-500 mt-2 tracking-widest text-[10px] md:text-xs flex flex-col md:flex-row md:items-center gap-2">
-              <span>STATUS: ACTIVE // TARGET: {level.title}</span>
-              <span className="hidden md:inline text-cyan-900/50">|</span>
-              <span className="text-cyan-400 font-bold">
-                ELAPSED: {startTime ? <TimeElapsed startTime={startTime} /> : "00:00:00"}
-              </span>
-            </p>
-          </div>
-          <div className="text-right flex flex-col items-end">
-            <Link href="/dashboard" className="text-gray-500 hover:text-cyan-400 text-xs mb-2 transition-colors">[ RETURN TO NODE ]</Link>
-            <div className="px-4 py-2 bg-violet-900/20 border border-violet-500/30 text-violet-400 text-xs md:text-sm tracking-widest font-bold">
-              SYS.SCORE: {team.score}
+        <header className="border-b border-cyan-900/50 pb-6 mb-8">
+          <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs font-mono text-cyan-500 hover:text-cyan-400 mb-6 transition-colors tracking-widest">
+            <span className="text-lg leading-none">&larr;</span> BACK TO DASHBOARD
+          </Link>
+          <div className="flex justify-between items-end">
+            <div>
+              <h1 className="text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest text-glow">PROTOCOL {level.levelNumber}</h1>
+              <p className="text-gray-500 mt-2 tracking-widest text-[10px] md:text-xs flex flex-col md:flex-row md:items-center gap-2">
+                <span>STATUS: ACTIVE // TARGET: {level.title}</span>
+                <span className="hidden md:inline text-cyan-900/50">|</span>
+                <span className="text-cyan-400 font-bold">
+                  REMAINING: {endTime ? <TimeRemaining endTime={endTime} haltedAt={haltedAt} isLive={isLive} /> : "--:--:--"}
+                </span>
+              </p>
+            </div>
+            <div className="text-right flex flex-col items-end">
+              <div className="px-4 py-2 bg-violet-900/20 border border-violet-500/30 text-violet-400 text-xs md:text-sm tracking-widest font-bold">
+                SYS.SCORE: {team.score}
+              </div>
             </div>
           </div>
         </header>

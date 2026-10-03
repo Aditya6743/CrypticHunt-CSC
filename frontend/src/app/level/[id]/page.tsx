@@ -14,10 +14,10 @@ export default async function LevelPage({ params }: { params: Promise<{ id: stri
   if (event?.status === "NOT_STARTED") {
     return (
       <div className="min-h-screen bg-[#05070B] flex items-center justify-center font-mono">
-        <div className="text-center p-8 border border-red-900/50 bg-red-950/10">
-          <h1 className="text-3xl text-red-500 font-bold mb-4 tracking-widest uppercase shadow-red-500/50 drop-shadow-md">SYSTEM OFFLINE</h1>
-          <p className="text-red-400/70 uppercase tracking-widest mb-8">The event has not started yet. Await admin initialization.</p>
-          <a href="/dashboard" className="inline-block px-8 py-3 border border-red-800 text-red-500 hover:bg-red-900/30 uppercase tracking-widest transition-colors">[ RETURN TO DASHBOARD ]</a>
+        <div className="text-center p-8 border border-amber-900/50 bg-amber-950/10">
+          <h1 className="text-3xl text-amber-500 font-bold mb-4 tracking-widest uppercase shadow-amber-500/50 drop-shadow-md">MISSION ON STANDBY</h1>
+          <p className="text-amber-400/70 uppercase tracking-widest mb-8">The event is currently paused or pending initialization.</p>
+          <a href="/dashboard" className="inline-block px-8 py-3 border border-amber-800 text-amber-500 hover:bg-amber-900/30 uppercase tracking-widest transition-colors">[ RETURN TO DASHBOARD ]</a>
         </div>
       </div>
     );
@@ -91,6 +91,6 @@ export default async function LevelPage({ params }: { params: Promise<{ id: stri
   const nextHint = allHints.find(h => !unlockedHints.find(uh => uh.id === h.id));
   const nextHintPenalty = nextHint ? nextHint.penalty : null;
 
-  return <ClientLevel level={level} team={team} unlockedHints={unlockedHints} nextHintPenalty={nextHintPenalty} startTime={event?.startTime} />;
+  return <ClientLevel level={level} team={team} unlockedHints={unlockedHints} nextHintPenalty={nextHintPenalty} endTime={event?.endTime} haltedAt={event?.haltedAt} isLive={event?.status === "LIVE"} />;
 
 }

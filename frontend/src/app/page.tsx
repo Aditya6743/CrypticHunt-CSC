@@ -2,11 +2,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
+import { prisma } from "@/lib/db";
 import { authOptions } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  const totalLevels = await prisma.level.count();
+  const displayLevels = totalLevels > 0 ? totalLevels : 50;
   return (
     <div className="min-h-screen bg-[#010204] text-white flex flex-col items-center justify-center relative overflow-hidden font-sans selection:bg-cyan-500/30">
       
@@ -24,6 +27,13 @@ export default async function Home() {
           0% { transform: translateY(-100%); opacity: 0; }
           50% { opacity: 0.5; }
           100% { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes spin {
+          100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        .mask-image-gradient {
+          mask-image: linear-gradient(to bottom, transparent, black);
+          -webkit-mask-image: linear-gradient(to bottom, transparent, black);
         }
         @keyframes line-flow {
           0% { stroke-dashoffset: 1100; }
@@ -65,8 +75,30 @@ export default async function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none bg-[#010204]/70 mix-blend-multiply"></div>
       <div className="absolute inset-0 z-0 pointer-events-none bg-gradient-to-t from-[#010204] via-transparent to-[#010204]/70"></div>
       
+      
       {/* Cinematic Vignette */}
       <div className="absolute inset-0 z-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 150px rgba(1, 2, 4, 0.9)' }}></div>
+
+      {/* --- PREMIUM AMBIENT ENHANCEMENTS --- */}
+      
+      {/* Ambient Lighting Orbs */}
+      <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-cyan-600/5 rounded-full blur-[160px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 12s ease-in-out infinite' }}></div>
+      <div className="absolute bottom-1/4 right-1/4 w-[50vw] h-[50vw] bg-blue-600/5 rounded-full blur-[200px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 15s ease-in-out infinite reverse' }}></div>
+      
+      
+      
+      
+
+      {/* Futuristic Perspective Grid */}
+      <div className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none z-0 overflow-hidden opacity-30 mask-image-gradient">
+        <div className="w-full h-[200%] absolute bottom-0" style={{
+          backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.2) 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+          transform: 'perspective(1000px) rotateX(75deg) translateY(100px)',
+          transformOrigin: 'bottom'
+        }}></div>
+      </div>
+
 
       {/* Falling Data Streams (Subtle) */}
       <div className="absolute top-0 left-[15%] w-[1px] h-32 bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent pointer-events-none z-0 data-fall" style={{ animationDelay: '0s' }}></div>

@@ -46,12 +46,22 @@ export const authOptions: NextAuthOptions = {
         const isPasswordValid = await bcrypt.compare(credentials.password, team.passwordHash);
 
         if (!isPasswordValid) return null;
+        
+        // Generate a new login token for Concurrency Control
+        const crypto = require('crypto');
+        const newToken = crypto.randomUUID();
+        
+        await prisma.team.update({
+          where: { id: team.id },
+          data: { activeLoginToken: newToken }
+        });
 
         return {
           id: team.id,
           name: team.teamName,
           email: team.leaderEmail,
-          role: "PARTICIPANT"
+          role: "PARTICIPANT",
+          loginToken: newToken
         };
       }
     })
@@ -65,10 +75,27 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.role = (user as any).role;
         token.id = user.id;
+        if ((user as any).loginToken) token.loginToken = (user as any).loginToken;
       }
+      
+      // Concurrency Control Check: Verify token against database on every request
+      if (!user && token.role === "PARTICIPANT" && token.id) {
+         const team = await prisma.team.findUnique({
+           where: { id: token.id as string },
+           select: { activeLoginToken: true }
+         });
+         
+         if (team?.activeLoginToken !== token.loginToken) {
+           token.invalidated = true;
+         }
+      }
+      
       return token;
     },
     async session({ session, token }) {
+      if (token.invalidated) {
+        return null as any; // Instantly logs the user out if their session was overridden
+      }
       if (session.user) {
         (session.user as any).role = token.role;
         (session.user as any).id = token.id;
