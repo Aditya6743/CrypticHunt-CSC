@@ -34,7 +34,7 @@ export default function TopLeftLogo() {
     return () => clearTimeout(timer);
   }, [clicks]);
 
-  const handleClick = (e) => {
+  const handleClick = (e: React.MouseEvent) => {
     setClicks(c => c + 1);
     if (clicks + 1 >= 3) {
       e.preventDefault();
