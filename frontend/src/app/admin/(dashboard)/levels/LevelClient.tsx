@@ -57,7 +57,7 @@ export default function LevelClient({ levels }: { levels: any }) {
   };
 
   return (
-    <div className="p-4 md:p-8 pt-8 md:pt-12 relative font-mono">
+    <div className="p-4 md:p-8 pt-4 md:pt-12 relative font-mono">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10 pb-2 relative">
         
         <div>
@@ -73,8 +73,8 @@ export default function LevelClient({ levels }: { levels: any }) {
         </button>
       </div>
 
-      <div className="bg-[#0a0e17] border border-cyan-900/50 rounded-sm overflow-hidden">
-        <table className="w-full text-left text-sm">
+      <div className="bg-[#0a0e17] border border-cyan-900/50 rounded-sm overflow-x-auto">
+        <table className="w-full text-left text-sm min-w-[700px]">
           <thead className="bg-[#020305] border-b border-cyan-900/30 text-cyan-500 text-[10px] tracking-widest uppercase">
             <tr>
               <th className="p-4">Level</th>
@@ -110,7 +110,7 @@ export default function LevelClient({ levels }: { levels: any }) {
               {formData.id ? 'Edit Level' : 'Create New Level'}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-400 text-xs tracking-widest mb-1">LEVEL NUMBER</label>
                   <input type="number" required value={formData.levelNumber} onChange={e => setFormData({...formData, levelNumber: e.target.value})} className="w-full bg-black border border-gray-800 px-3 py-2 text-white focus:border-cyan-500 outline-none" />
@@ -131,7 +131,7 @@ export default function LevelClient({ levels }: { levels: any }) {
                 <textarea required rows={5} value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full bg-black border border-gray-800 px-3 py-2 text-white focus:border-cyan-500 outline-none font-mono text-xs"></textarea>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-400 text-xs tracking-widest mb-1">CATEGORY</label>
                   <input type="text" required value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} className="w-full bg-black border border-gray-800 px-3 py-2 text-white focus:border-cyan-500 outline-none" />
@@ -147,7 +147,7 @@ export default function LevelClient({ levels }: { levels: any }) {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-gray-400 text-xs tracking-widest mb-1">ACCEPTED ANSWER</label>
                   <input type="text" required value={formData.answer} onChange={e => setFormData({...formData, answer: e.target.value})} className="w-full bg-black border border-gray-800 px-3 py-2 text-white focus:border-cyan-500 outline-none font-mono" />

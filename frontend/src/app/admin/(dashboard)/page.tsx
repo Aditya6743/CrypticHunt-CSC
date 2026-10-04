@@ -82,7 +82,7 @@ export default async function AdminDashboard() {
  const isFrozen = event?.leaderboardFrozen || false;
 
  return (
- <div className="min-h-screen bg-[#05070B] text-gray-100 font-mono p-4 md:p-8 pt-8 md:pt-12 relative overflow-hidden">
+ <div className="min-h-screen bg-[#05070B] text-gray-100 font-mono p-4 md:p-8 pt-4 md:pt-12 relative overflow-hidden">
  
 
 
@@ -102,7 +102,7 @@ export default async function AdminDashboard() {
  </div>
 
  {/* 4-Column Grid Layout (Like the very first time) */}
- <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
  
  {/* Teams Metric */}
  <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden">
@@ -155,7 +155,7 @@ export default async function AdminDashboard() {
 
               <div className="mt-6 pt-6 border-t border-white/5 w-full">
                 <h4 className="text-[10px] font-bold tracking-widest text-gray-500 mb-4 uppercase">Set Deadline</h4>
-                <form action={setEndTime} className="flex gap-3 items-center">
+                <form action={setEndTime} className="flex flex-wrap gap-3 items-center">
                   <div className="flex items-center bg-black/50 border border-white/10 rounded-sm focus-within:border-cyan-500/50">
                     <input type="number" name="hours" placeholder="0" min="0" max="999" className="w-14 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
                     <span className="text-[10px] text-gray-500 pr-3 font-bold tracking-widest">HRS</span>

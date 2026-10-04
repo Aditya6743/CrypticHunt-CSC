@@ -164,6 +164,14 @@ export default function Preloader() {
             moveToCorner-mobile 0.8s cubic-bezier(0.7, 0, 0.3, 1) 2.5s forwards;
         }
 
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .logo-wrapper {
+            animation:
+              revolve 1.2s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards,
+              moveToCorner-tablet 0.8s cubic-bezier(0.7, 0, 0.3, 1) 2.5s forwards;
+          }
+        }
+        
         @media (min-width: 1024px) {
           .logo-wrapper {
             /* Base starting position (Desktop) */
@@ -214,6 +222,11 @@ export default function Preloader() {
           which is positioned at "top-6 left-6" (24px, 24px) with width 72px 
         */
         @keyframes moveToCorner-mobile {
+          0% { top: 50%; left: 50%; width: 128px; height: 128px; margin-top: -64px; margin-left: -64px; }
+          100% { top: 16px; left: 16px; width: 50px; height: 50px; margin-top: 0; margin-left: 0; }
+        }
+        
+        @keyframes moveToCorner-tablet {
           0% { top: 50%; left: 50%; width: 128px; height: 128px; margin-top: -64px; margin-left: -64px; }
           100% { top: 24px; left: 48px; width: 72px; height: 72px; margin-top: 0; margin-left: 0; }
         }

@@ -50,7 +50,7 @@ export default async function Leaderboard() {
           
 
         <div className="bg-[#0a0e17] border border-cyan-900/30 p-1 shadow-[0_0_30px_rgba(6,182,212,0.05)]">
-          <table className="w-full text-left border-collapse">
+          <div className="overflow-x-auto"><table className="w-full text-left border-collapse min-w-[500px]">
             <thead>
               <tr className="bg-cyan-950/20 text-cyan-500 text-xs tracking-widest">
                 <th className="p-4 border-b border-cyan-900/30">RANK</th>
@@ -79,7 +79,7 @@ export default async function Leaderboard() {
                 </tr>
               )}
             </tbody>
-          </table>
+          </table></div>
         </div>
       </div>
     </div>

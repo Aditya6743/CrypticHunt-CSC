@@ -3,8 +3,18 @@ import LogoutButton from '@/components/LogoutButton';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#030408] text-gray-100 font-sans flex selectable">
-      <aside className="relative w-52 border-r border-white/5 bg-[#05070B] flex flex-col hidden md:flex">
+    <div className="min-h-screen bg-[#030408] text-gray-100 font-sans flex flex-col md:flex-row selectable pt-[80px] md:pt-0">
+      
+      {/* Mobile Top Navigation (only visible on phones) */}
+      <div className="md:hidden sticky top-[80px] z-30 bg-[#05070B] border-b border-white/5 p-4 flex flex-wrap gap-2 justify-center shadow-lg">
+        <Link href="/admin" className="px-4 py-2 bg-white/5 rounded-full text-[10px] font-bold tracking-widest uppercase text-white hover:bg-white/10">Overview</Link>
+        <Link href="/admin/levels" className="px-4 py-2 bg-white/5 rounded-full text-[10px] font-bold tracking-widest uppercase text-white hover:bg-white/10">Levels</Link>
+        <Link href="/admin/teams" className="px-4 py-2 bg-white/5 rounded-full text-[10px] font-bold tracking-widest uppercase text-white hover:bg-white/10">Teams</Link>
+        <LogoutButton className="px-4 py-2 border border-red-500/20 text-red-400 rounded-full text-[10px] font-bold tracking-widest uppercase hover:bg-red-500/10" />
+      </div>
+
+      {/* Desktop Sidebar (hidden on phones) */}
+      <aside className="relative w-52 border-r border-white/5 bg-[#05070B] flex-col hidden md:flex">
         
         {/* Massive padding top to completely clear the global CSC logo */}
         <nav className="flex-1 px-4 space-y-2 pt-36">
@@ -27,7 +37,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
       
-      <main className="flex-1 overflow-y-auto relative">
+      <main className="flex-1 overflow-y-auto relative w-full">
         {children}
       </main>
     </div>

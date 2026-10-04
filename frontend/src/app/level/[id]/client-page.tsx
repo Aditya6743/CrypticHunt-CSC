@@ -85,7 +85,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
   };
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-gray-100 p-4 md:p-8 font-mono flex flex-col relative overflow-hidden pt-32">
+    <div className="min-h-screen bg-[#05070B] text-gray-100 p-4 md:p-8 font-mono flex flex-col relative overflow-hidden pt-28 md:pt-32">
       {/* Premium Background Effects */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
 
@@ -94,10 +94,10 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
           <Link href="/dashboard" className="inline-flex items-center gap-2 text-xs font-mono text-cyan-500 hover:text-cyan-400 mb-6 transition-colors tracking-widest">
             <span className="text-lg leading-none">&larr;</span> BACK TO DASHBOARD
           </Link>
-          <div className="flex justify-between items-end">
+          <div className="flex flex-col sm:flex-row sm:justify-between items-start sm:items-end gap-6 sm:gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-cyan-400 tracking-widest text-glow">PROTOCOL {level.levelNumber}</h1>
-              <p className="text-gray-500 mt-2 tracking-widest text-[10px] md:text-xs flex flex-col md:flex-row md:items-center gap-2">
+              <p className="text-gray-500 mt-3 tracking-widest text-[10px] md:text-xs flex flex-col md:flex-row md:items-center gap-2 md:gap-2 leading-relaxed">
                 <span>STATUS: ACTIVE // TARGET: {level.title}</span>
                 <span className="hidden md:inline text-cyan-900/50">|</span>
                 <span className="text-cyan-400 font-bold">
@@ -105,7 +105,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                 </span>
               </p>
             </div>
-            <div className="text-right flex flex-col items-end">
+            <div className="text-left sm:text-right flex flex-col items-start sm:items-end">
               <div className="px-4 py-2 bg-violet-900/20 border border-violet-500/30 text-violet-400 text-xs md:text-sm tracking-widest font-bold">
                 SYS.SCORE: {team.score}
               </div>
@@ -119,7 +119,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
               {/* Scanline overlay for content box */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-20 pointer-events-none"></div>
               
-              <div className="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-0 mb-8 border-b border-white/5 pb-4">
                 <h2 className="text-xl md:text-2xl font-bold text-white tracking-widest uppercase">{level.title}</h2>
                 <div className="text-cyan-500 text-xs tracking-widest uppercase bg-cyan-900/20 px-3 py-1 border border-cyan-500/30">
                   {level.category}
