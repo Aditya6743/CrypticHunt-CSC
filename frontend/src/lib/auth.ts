@@ -15,6 +15,20 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.teamId || !credentials?.password) return null;
         
         // Check for Admin first
+        if (
+          process.env.ADMIN_USERNAME &&
+          process.env.ADMIN_PASSWORD &&
+          credentials.teamId === process.env.ADMIN_USERNAME &&
+          credentials.password === process.env.ADMIN_PASSWORD
+        ) {
+          return {
+            id: "system-admin",
+            name: "System Admin",
+            email: "admin@cryptichunt",
+            role: "ADMIN"
+          };
+        }
+
         const admin = await prisma.admin.findUnique({
           where: { username: credentials.teamId }
         });
