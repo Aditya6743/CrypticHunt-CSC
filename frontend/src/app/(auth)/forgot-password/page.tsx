@@ -54,7 +54,7 @@ export default function ForgotPassword() {
               Admin Override Approved
             </p>
             <p className="text-gray-400 text-xs mb-2">Your new system password is:</p>
-            <div className="bg-green-950/30 border border-green-500/30 py-3 text-white text-xl tracking-wider font-bold animate-pulse selectable">
+            <div className="bg-green-950/30 border border-green-500/30 py-3 text-white text-xl tracking-wider font-bold animate-pulse select-all cursor-text">
               {newPassword}
             </div>
             <p className="text-red-400 text-[10px] mt-4 uppercase tracking-widest">

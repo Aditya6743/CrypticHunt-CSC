@@ -126,7 +126,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                 </div>
               </div>
               
-              <div className="prose prose-invert max-w-none text-gray-300 font-mono text-sm leading-relaxed whitespace-pre-wrap relative z-10">
+              <div className="prose prose-invert max-w-none text-gray-300 font-mono text-sm leading-relaxed whitespace-pre-wrap relative z-10 select-text">
                 {typewriter}<span className="animate-pulse text-cyan-400">_</span>
               </div>
             </div>

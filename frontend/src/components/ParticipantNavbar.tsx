@@ -32,7 +32,7 @@ export default async function ParticipantNavbar({ activePage }: { activePage: st
           <div className="flex items-center gap-4 text-xs font-mono ml-auto">
             <div className="text-right">
               <p className="text-cyan-500 font-bold truncate max-w-[120px] sm:max-w-xs">{team.teamName}</p>
-              <p className="text-gray-600 text-[10px] hidden sm:block">{team.teamId}</p>
+              <p className="text-gray-600 text-[10px] hidden sm:block select-text">{team.teamId}</p>
             </div>
             <LogoutButton className="px-3 py-2 text-[10px] sm:text-xs border border-white/10 hover:border-red-500/50 hover:bg-red-500/10 hover:text-red-400 transition-all rounded-sm uppercase tracking-widest whitespace-nowrap" />
           </div>

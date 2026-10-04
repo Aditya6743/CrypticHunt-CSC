@@ -22,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${firaCode.variable} font-sans bg-[#05070B] text-gray-100 min-h-screen antialiased relative`}>
+      <body className={`${inter.variable} ${firaCode.variable} font-sans bg-[#05070B] text-gray-100 min-h-screen antialiased relative select-none`}>
         <Preloader />
         <TopLeftLogo />
         {children}
