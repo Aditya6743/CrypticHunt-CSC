@@ -30,7 +30,7 @@ export default async function Dashboard() {
   if (!session) redirect("/login");
 
   const team = await prisma.team.findUnique({
-    where: { id: session.user.id },
+    where: { id: (session?.user as any)?.id },
     include: { 
       hintUsages: { include: { level: true } },
       progress: { include: { level: true } }

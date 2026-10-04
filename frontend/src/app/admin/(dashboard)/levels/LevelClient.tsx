@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { deleteLevel, saveLevel } from "./actions";
 
-export default function LevelClient({ levels }) {
+export default function LevelClient({ levels }: { levels: any }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<any>({});

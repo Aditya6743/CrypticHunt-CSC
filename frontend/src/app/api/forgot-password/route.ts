@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
-export async function POST(req) {
+import { NextRequest } from "next/server";
+export async function POST(req: NextRequest) {
   try {
     const { identifier } = await req.json();
     const identStr = identifier ? identifier.trim() : "";

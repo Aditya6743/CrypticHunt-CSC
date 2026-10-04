@@ -6,7 +6,7 @@ import TeamRow from "./TeamRow";
 
 export default async function ManageTeams() {
   const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "ADMIN") redirect("/admin/login");
+  if ((session?.user as any)?.role !== "ADMIN") redirect("/admin/login");
 
   const teams = await prisma.team.findMany({
     orderBy: { score: 'desc' },

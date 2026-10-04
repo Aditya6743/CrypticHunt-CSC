@@ -6,7 +6,7 @@ import LevelClient from "./LevelClient";
 
 export default async function ManageLevels() {
   const session = await getServerSession(authOptions);
-  if (session?.user?.role !== "ADMIN") redirect("/admin/login");
+  if ((session?.user as any)?.role !== "ADMIN") redirect("/admin/login");
 
   const levels = await prisma.level.findMany({
     orderBy: { levelNumber: 'asc' },

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import ResetButton from "./ResetButton";
 
-export default function TeamRow({ team }) {
+export default function TeamRow({ team }: { team: any }) {
   const [expanded, setExpanded] = useState(false);
   const hasResetRequest = team.reports.length > 0;
 
@@ -44,7 +44,7 @@ export default function TeamRow({ team }) {
                 <h4 className="text-cyan-500 text-xs tracking-widest mb-3 border-b border-cyan-900/30 pb-2">SQUAD ROSTER ({team.members.length + 1})</h4>
                 <ul className="text-gray-300 space-y-2 list-none">
                   <li className="flex items-center gap-2 text-cyan-300"><span className="w-1.5 h-1.5 bg-cyan-500 rounded-full"></span> {team.leaderName} (Leader)</li>
-                  {team.members.map(m => (
+                  {team.members.map((m: any) => (
                     <li key={m.id} className="flex items-center gap-2"><span className="w-1 h-1 bg-gray-600 rounded-full ml-0.5"></span> {m.name}</li>
                   ))}
                 </ul>

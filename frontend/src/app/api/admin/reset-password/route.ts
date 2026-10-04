@@ -5,10 +5,11 @@ import { prisma } from "@/lib/db";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 
-export async function POST(req) {
+import { NextRequest } from "next/server";
+export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    if (session?.user?.role !== "ADMIN") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if ((session?.user as any)?.role !== "ADMIN") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
     const { teamId, customPassword } = await req.json();
 

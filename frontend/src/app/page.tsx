@@ -240,12 +240,12 @@ export default async function Home() {
                 </div>
                 
                 <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white tracking-widest uppercase mb-8 drop-shadow-md text-center break-all">
-                  {session.user.name}
+                  {session?.user?.name}
                 </h3>
                 
                 <div className="flex flex-col sm:flex-row gap-4 w-full">
                   <Link 
-                    href={session.user.role === "ADMIN" ? "/admin" : "/dashboard"} 
+                    href={(session?.user as any)?.role === "ADMIN" ? "/admin" : "/dashboard"} 
                     className="flex-1 relative flex items-center justify-center px-6 py-3 bg-cyan-500 hover:bg-cyan-400 transition-colors rounded-sm"
                   >
                     <span className="text-black font-black uppercase tracking-[0.2em] text-xs">DASHBOARD</span>

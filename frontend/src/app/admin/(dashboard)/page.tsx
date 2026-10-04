@@ -71,7 +71,7 @@ async function toggleEventState(formData: FormData) {
 
 export default async function AdminDashboard() {
  const session = await getServerSession(authOptions);
- if (session?.user?.role !== "ADMIN") redirect("/admin/login");
+ if ((session?.user as any)?.role !== "ADMIN") redirect("/admin/login");
 
  const teamsCount = await prisma.team.count({ where: { status: "ACTIVE" } });
  const levelsCount = await prisma.level.count({ where: { active: true } });

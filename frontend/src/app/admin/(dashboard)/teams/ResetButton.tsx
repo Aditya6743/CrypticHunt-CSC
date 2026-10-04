@@ -2,16 +2,16 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function ResetButton({ teamId, teamName, hasRequest }) {
+export default function ResetButton({ teamId, teamName, hasRequest }: { teamId: string, teamName: string, hasRequest: boolean }) {
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [mode, setMode] = useState("select"); // select | custom
   const [customPassword, setCustomPassword] = useState("");
   const router = useRouter();
-  const menuRef = useRef(null);
+  const menuRef = useRef<any>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: any) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setIsOpen(false);
       }
@@ -44,7 +44,7 @@ export default function ResetButton({ teamId, teamName, hasRequest }) {
     setLoading(false);
   };
 
-  const handleCustomSubmit = (e) => {
+  const handleCustomSubmit = (e: any) => {
     e.preventDefault();
     if (customPassword.trim().length < 4) {
       alert("Password must be at least 4 characters long.");

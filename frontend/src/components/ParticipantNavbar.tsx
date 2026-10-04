@@ -9,7 +9,7 @@ export default async function ParticipantNavbar({ activePage }: { activePage: st
   if (!session) return null;
 
   const team = await prisma.team.findUnique({
-    where: { id: session.user.id },
+    where: { id: (session?.user as any)?.id },
     select: { teamName: true, teamId: true }
   });
 
