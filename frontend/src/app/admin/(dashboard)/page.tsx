@@ -83,14 +83,9 @@ export default async function AdminDashboard() {
 
  return (
  <div className="min-h-screen bg-[#05070B] text-gray-100 font-mono p-4 md:p-8 pt-4 md:pt-12 relative overflow-hidden">
- 
-
-
  <div className="relative z-10">
  
- {/* Original Style Header but Premium */}
  <div className="flex items-center gap-4 mb-10 pb-2 relative">
- 
  <div>
  <h1 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-white tracking-[0.2em] uppercase ">
  EVENT OVERVIEW
@@ -101,29 +96,27 @@ export default async function AdminDashboard() {
  </div>
  </div>
 
- {/* 4-Column Grid Layout (Like the very first time) */}
- <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+ {/* Top Row Metrics */}
+ <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
  
  {/* Teams Metric */}
- <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden">
- <h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-4">REGISTERED TEAMS</h3>
- <p className="text-4xl text-white font-bold ">{teamsCount}</p>
+ <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden min-h-[160px]">
+ <div className="flex flex-col h-full"><h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-auto">REGISTERED TEAMS</h3><div className="flex items-end justify-between mt-8"><p className="text-6xl text-white font-bold leading-none">{teamsCount}</p><div className="text-[10px] text-cyan-500 tracking-widest uppercase mb-1">TEAMS</div></div></div>
  </div>
 
  {/* Levels Metric */}
- <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden">
- <h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-4">ACTIVE LEVELS</h3>
- <p className="text-4xl text-white font-bold ">{levelsCount} <span className="text-2xl text-gray-700 font-normal">/ {totalLevels}</span></p>
+ <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden min-h-[160px]">
+ <div className="flex flex-col h-full"><h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-auto">ACTIVE LEVELS</h3><div className="flex items-end justify-between mt-8"><p className="text-6xl text-white font-bold leading-none">{levelsCount} <span className="text-3xl text-gray-700 font-normal">/ {totalLevels}</span></p><div className="text-[10px] text-cyan-500 tracking-widest uppercase mb-1">STAGES</div></div></div>
  </div>
 
  {/* Leaderboard Control */}
- <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden">
+ <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden min-h-[160px]">
  <div>
  <h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-4 flex justify-between items-center">
  LEADERBOARD
  <span className={`w-2 h-2 rounded-full ${isFrozen ? 'bg-amber-500 ' : 'bg-green-500 animate-pulse'}`}></span>
  </h3>
- <p className="text-2xl text-white font-bold mb-6">
+ <p className="text-3xl text-white font-bold mb-6">
  {isFrozen ? 'FROZEN' : 'ACTIVE'}
  </p>
  </div>
@@ -136,13 +129,13 @@ export default async function AdminDashboard() {
  </div>
 
  {/* Global Event Control */}
- <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden">
+ <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col justify-between overflow-hidden min-h-[160px]">
  <div>
  <h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-4 flex justify-between items-center">
  EVENT STATUS
  <span className={`w-2 h-2 rounded-full ${currentStatus === 'LIVE' ? 'bg-green-500 animate-pulse' : 'bg-red-500 '}`}></span>
  </h3>
- <p className="text-2xl text-white font-bold mb-6">
+ <p className="text-3xl text-white font-bold mb-6">
  {currentStatus === "LIVE" ? "LIVE" : "STOPPED"}
  </p>
  </div>
@@ -151,28 +144,35 @@ export default async function AdminDashboard() {
  <button type="submit" className={`w-full overflow-hidden text-ellipsis whitespace-nowrap py-2.5 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors border ${currentStatus === "LIVE" ? "bg-transparent text-red-500 hover:bg-red-500 hover:text-black border-red-500" : "bg-transparent text-green-500 hover:bg-green-500 hover:text-black border-green-500"}`}>
  [ {currentStatus === "LIVE" ? "HALT EVENT" : "INITIATE EVENT"} ]
  </button>
-              </form>
+ </form>
+ </div>
+ 
+ </div>
 
-              <div className="mt-6 pt-6 border-t border-white/5 w-full">
-                <h4 className="text-[10px] font-bold tracking-widest text-gray-500 mb-4 uppercase">Set Deadline</h4>
-                <form action={setEndTime} className="flex flex-wrap gap-3 items-center">
-                  <div className="flex items-center bg-black/50 border border-white/10 rounded-sm focus-within:border-cyan-500/50">
-                    <input type="number" name="hours" placeholder="0" min="0" max="999" className="w-14 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
-                    <span className="text-[10px] text-gray-500 pr-3 font-bold tracking-widest">HRS</span>
-                  </div>
-                  <div className="flex items-center bg-black/50 border border-white/10 rounded-sm focus-within:border-cyan-500/50">
-                    <input type="number" name="minutes" placeholder="0" min="0" max="59" className="w-14 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
-                    <span className="text-[10px] text-gray-500 pr-3 font-bold tracking-widest">MIN</span>
-                  </div>
-                  <button type="submit" className="px-4 py-2 border border-cyan-500/50 text-cyan-500 hover:bg-cyan-500 hover:text-black text-[10px] font-bold tracking-widest transition-colors uppercase">Set Timer</button>
-                </form>
-                {event?.endTime && <p className="text-[10px] text-cyan-500 mt-3 font-mono">Ends: {event.endTime.toLocaleString()}</p>}
-              </div>
+ {/* Bottom Row Controls */}
+ <div className="grid grid-cols-1 gap-6 mb-12">
+   {/* Timer Control */}
+   <div className="bg-[#0a0e17]/80 backdrop-blur-2xl border border-cyan-900/30 p-6 rounded-sm border-t-2 border-t-cyan-500 flex flex-col md:flex-row justify-between items-start md:items-center overflow-hidden">
+     <div className="mb-6 md:mb-0">
+       <h3 className="text-gray-500 text-[10px] tracking-[0.2em] uppercase mb-2">GLOBAL DEADLINE TIMER</h3>
+       <p className="text-xs text-gray-400">Configure countdown for all teams. Reaching zero triggers auto-freeze.</p>
+       {event?.endTime && <p className="text-[10px] text-cyan-500 mt-2 font-mono">Current Ends: {event.endTime.toLocaleString()}</p>}
+     </div>
+     <form action={setEndTime} className="flex flex-wrap gap-3 items-center">
+       <div className="flex items-center bg-black/50 border border-white/10 rounded-sm focus-within:border-cyan-500/50">
+         <input type="number" name="hours" placeholder="0" min="0" max="999" className="w-16 bg-transparent p-3 text-sm font-mono text-white text-center focus:outline-none" />
+         <span className="text-[10px] text-gray-500 pr-4 font-bold tracking-widest">HRS</span>
+       </div>
+       <div className="flex items-center bg-black/50 border border-white/10 rounded-sm focus-within:border-cyan-500/50">
+         <input type="number" name="minutes" placeholder="0" min="0" max="59" className="w-16 bg-transparent p-3 text-sm font-mono text-white text-center focus:outline-none" />
+         <span className="text-[10px] text-gray-500 pr-4 font-bold tracking-widest">MIN</span>
+       </div>
+       <button type="submit" className="px-6 py-3 border border-cyan-500/50 text-cyan-500 hover:bg-cyan-500 hover:text-black text-xs font-bold tracking-widest transition-colors uppercase">Set Timer</button>
+     </form>
+   </div>
+ </div>
 
-            </div>
-
-          </div>
-        </div>
-      </div>
-    );
+ </div>
+ </div>
+ );
 }
