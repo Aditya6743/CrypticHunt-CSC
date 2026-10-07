@@ -191,7 +191,7 @@ export default function Preloader() {
           animation: slide-in-left 1s cubic-bezier(0.25, 1, 0.5, 1) 0.2s both;
         }
         .logo-right {
-          clip-path: polygon(50% 0, 98.5% 0, 98.5% 100%, 50% 100%);
+          clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);
           animation: slide-in-right 1s cubic-bezier(0.25, 1, 0.5, 1) 0.2s both;
         }
         .logo-solid {
