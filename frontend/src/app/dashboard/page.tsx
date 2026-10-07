@@ -130,7 +130,7 @@ export default async function Dashboard() {
               <span className="text-cyan-500">LIVE EVENT</span>
             </div>
           </div>
-          <div className="text-right bg-white/5 border border-white/10 px-6 py-3 rounded-sm flex flex-col items-end">
+          <div className="w-full sm:w-auto text-center sm:text-right bg-white/5 border border-white/10 px-6 py-3 rounded-sm flex flex-col items-center sm:items-end">
             <span className="text-2xl font-mono font-light text-white tracking-tight">
               {endTime ? <TimeRemaining endTime={endTime} haltedAt={event?.haltedAt} isLive={event?.status === "LIVE"} /> : "--:--:--"}
             </span>

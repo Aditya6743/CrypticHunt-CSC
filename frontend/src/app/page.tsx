@@ -5,11 +5,13 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/db";
 import { authOptions } from "@/lib/auth";
 import LogoutButton from "@/components/LogoutButton";
+import LandingCountdown from "@/components/LandingCountdown";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const totalLevels = await prisma.level.count();
   const displayLevels = totalLevels > 0 ? totalLevels : 50;
+  const event = await prisma.event.findFirst();
   return (
     <div className="min-h-screen bg-[#010204] text-white flex flex-col items-center justify-center relative overflow-hidden font-sans selection:bg-cyan-500/30">
       
@@ -39,7 +41,7 @@ export default async function Home() {
           0% { stroke-dashoffset: 1100; }
           100% { stroke-dashoffset: 0; }
         }
-        .text-glow {
+        . {
           text-shadow: 0 0 20px rgba(6, 182, 212, 0.4), 0 0 40px rgba(6, 182, 212, 0.2);
         }
         .data-fall { animation: data-stream 8s linear infinite; }
@@ -80,10 +82,11 @@ export default async function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 150px rgba(1, 2, 4, 0.9)' }}></div>
 
       {/* --- PREMIUM AMBIENT ENHANCEMENTS --- */}
+{/* Ambient Lighting Orbs - Faint Edge Bleed */}
+      <div className="absolute top-[15%] -left-[20vw] w-[45vw] h-[45vw] bg-cyan-600/5 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 12s ease-in-out infinite' }}></div>
+      <div className="absolute bottom-[15%] -right-[20vw] w-[45vw] h-[45vw] bg-violet-600/5 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 15s ease-in-out infinite reverse' }}></div>
       
-      {/* Ambient Lighting Orbs */}
-      <div className="absolute top-1/4 left-1/4 w-[40vw] h-[40vw] bg-cyan-600/5 rounded-full blur-[160px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 12s ease-in-out infinite' }}></div>
-      <div className="absolute bottom-1/4 right-1/4 w-[50vw] h-[50vw] bg-blue-600/5 rounded-full blur-[200px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 15s ease-in-out infinite reverse' }}></div>
+      
       
       
       
@@ -106,28 +109,9 @@ export default async function Home() {
       <div className="absolute top-0 left-[85%] w-[1px] h-24 bg-gradient-to-b from-transparent via-cyan-500/20 to-transparent pointer-events-none z-0 data-fall" style={{ animationDelay: '5s', animationDuration: '6s' }}></div>
 
 
-      {/* --- CYBER DECORATIONS (LINES & DATA) --- */}
-      {/* Top Left Terminal Log (No Flicker) */}
-      <div className="absolute top-32 left-8 lg:left-16 font-mono text-[10px] md:text-xs text-cyan-400 leading-relaxed pointer-events-none z-0 hidden md:block">
-        <p className="mb-1 text-cyan-200">INITIATING_</p>
-        <p className="mb-1">SECURE CONNECTION...</p>
-        <p className="text-cyan-300">OK [200]</p>
-      </div>
 
-      {/* Bottom Left Binary (No Flicker) */}
-      <div className="absolute bottom-40 left-8 lg:left-16 font-mono text-[10px] md:text-xs text-cyan-500 leading-relaxed pointer-events-none z-0 hidden md:block opacity-60">
-        <p>01001011</p>
-        <p>01010010</p>
-        <p>01011011</p>
-        <p>01010000</p>
-      </div>
 
-      {/* Top Right System Data (No Flicker) */}
-      <div className="absolute top-48 right-8 lg:right-16 font-mono text-[10px] md:text-xs text-violet-400 text-right pointer-events-none z-0 hidden md:block opacity-70">
-        <p className="text-violet-200">SYS.REQ: 0x99A</p>
-        <p>PACKETS: 4,091</p>
-        <p>LATENCY: 12ms</p>
-      </div>
+      
 
       {/* Shared SVG Filters for true glowing lines */}
       <svg width="0" height="0" className="hidden">
@@ -149,47 +133,54 @@ export default async function Home() {
         </defs>
       </svg>
 
-      {/* Left Circuit Line SVG (Live Flowing) */}
+      {/* 1. Left Circuit Line SVG (Cyan) */}
       <svg className="absolute top-[15%] left-0 w-96 h-96 opacity-60 pointer-events-none z-0 hidden lg:block" viewBox="0 0 400 400">
-        {/* Base faint line */}
         <path d="M 0 50 L 150 50 L 150 250 L 300 250" fill="none" stroke="#06b6d4" strokeWidth="0.5" opacity="0.3" />
-        {/* Animated glowing pulse */}
         <path d="M 0 50 L 150 50 L 150 250 L 300 250" fill="none" stroke="#06b6d4" strokeWidth="1.5" filter="url(#neonGlowCyan)" className="flow-path-cyan" />
-        
         <circle cx="150" cy="50" r="3" fill="#06b6d4" filter="url(#neonGlowCyan)" />
         <circle cx="300" cy="250" r="3" fill="#06b6d4" className="animate-pulse" filter="url(#neonGlowCyan)" />
       </svg>
 
-      {/* Right Circuit Line SVG (Live Flowing) */}
-      <svg className="absolute bottom-[15%] right-0 w-96 h-96 opacity-60 pointer-events-none z-0 hidden lg:block" viewBox="0 0 400 400">
-        {/* Base faint line */}
+      {/* 2. Bottom Right Circuit Line SVG (Violet) */}
+      <svg className="absolute bottom-[10%] right-0 w-96 h-96 opacity-60 pointer-events-none z-0 hidden lg:block" viewBox="0 0 400 400">
         <path d="M 400 250 L 250 250 L 250 80 L 100 80" fill="none" stroke="#8b5cf6" strokeWidth="0.5" opacity="0.3" />
-        {/* Animated glowing pulse */}
         <path d="M 400 250 L 250 250 L 250 80 L 100 80" fill="none" stroke="#8b5cf6" strokeWidth="1.5" filter="url(#neonGlowViolet)" className="flow-path-violet" />
-        
         <circle cx="250" cy="250" r="3" fill="#8b5cf6" filter="url(#neonGlowViolet)" />
         <circle cx="100" cy="80" r="3" fill="#8b5cf6" className="animate-pulse" filter="url(#neonGlowViolet)" />
+      </svg>
+      
+      {/* 3. Top Right Circuit Line SVG (Violet) */}
+      <svg className="absolute top-[5%] right-0 w-96 h-96 opacity-50 pointer-events-none z-0 hidden lg:block" viewBox="0 0 400 400">
+        <path d="M 400 120 L 280 120 L 280 300 L 80 300" fill="none" stroke="#8b5cf6" strokeWidth="0.5" opacity="0.3" />
+        <path d="M 400 120 L 280 120 L 280 300 L 80 300" fill="none" stroke="#8b5cf6" strokeWidth="1.5" filter="url(#neonGlowViolet)" className="flow-path-violet" style={{ animationDelay: '2s' }} />
+        <circle cx="280" cy="120" r="3" fill="#8b5cf6" filter="url(#neonGlowViolet)" />
+        <circle cx="80" cy="300" r="3" fill="#8b5cf6" className="animate-pulse" filter="url(#neonGlowViolet)" />
+      </svg>
+
+      {/* 4. Bottom Left Circuit Line SVG (Cyan) */}
+      <svg className="absolute bottom-[20%] left-0 w-96 h-96 opacity-50 pointer-events-none z-0 hidden lg:block" viewBox="0 0 400 400">
+        <path d="M 0 320 L 180 320 L 180 150 L 350 150" fill="none" stroke="#06b6d4" strokeWidth="0.5" opacity="0.3" />
+        <path d="M 0 320 L 180 320 L 180 150 L 350 150" fill="none" stroke="#06b6d4" strokeWidth="1.5" filter="url(#neonGlowCyan)" className="flow-path-cyan" style={{ animationDelay: '1.5s' }} />
+        <circle cx="180" cy="320" r="3" fill="#06b6d4" filter="url(#neonGlowCyan)" />
+        <circle cx="350" cy="150" r="3" fill="#06b6d4" className="animate-pulse" filter="url(#neonGlowCyan)" />
       </svg>
 
 
       {/* Giant Ethereal Watermark Logo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[900px] md:h-[900px] opacity-[0.03] pointer-events-none mix-blend-screen flex items-center justify-center">
-        <Image src="/logo.png" alt="" width={900} height={900} className="object-contain" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[900px] md:h-[900px] opacity-5 pointer-events-none mix-blend-screen flex items-center justify-center">
+        <Image src="/logo.png" alt="" width={900} height={900} className="object-contain " />
       </div>
 
 
-      {/* --- HUD (HEADS UP DISPLAY) BORDERS --- */}
-      <div className="absolute top-6 right-6 text-[10px] font-mono text-violet-500/40 hidden md:block">ENCRYPTION: ACTIVE</div>
-      <div className="absolute bottom-6 left-6 text-[10px] font-mono text-cyan-500/40 hidden md:block">LAT: 04.992 // LNG: 12.001</div>
-      <div className="absolute bottom-6 right-6 text-[10px] font-mono text-violet-500/40 hidden md:block animate-pulse">AWAITING_INPUT...</div>
+
 
 
       {/* --- MAIN HERO CONTENT --- */}
       <div className="z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center -mt-28 md:-mt-40" style={{ animation: 'float 6s ease-in-out infinite' }}>
         
         {/* Top Status Pill */}
-        <div className="relative group cursor-default mb-8">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-200"></div>
+        <div className="hidden md:block relative group cursor-default mb-8">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-500 to-violet-500 rounded-full blur opacity-10 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
           <div className="relative flex items-center gap-3 px-6 py-2 bg-[#020305]/80 backdrop-blur-xl border border-white/10 rounded-full">
             <div className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
@@ -209,8 +200,8 @@ export default async function Home() {
         {/* Subtitle */}
         <div className="flex items-center gap-4 mb-8">
           <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/50 hidden sm:block"></div>
-          <h2 className="text-sm md:text-xl text-cyan-400 tracking-[0.4em] font-mono uppercase text-glow">
-            50 Levels. One Final Boss.
+          <h2 className="text-sm md:text-xl text-cyan-400 tracking-[0.4em] font-mono uppercase ">
+            <span className="tracking-[0.1em] mr-1">30</span> Levels. One Final Boss.
           </h2>
           <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/50 hidden sm:block"></div>
         </div>
@@ -221,49 +212,48 @@ export default async function Home() {
             The ultimate test of digital supremacy.
           </p>
           <p className="text-gray-500 text-xs md:text-sm font-mono leading-relaxed">
-            [ CRYPTOGRAPHY ]  //  [ OSINT ]  //  [ FORENSICS ]  //  [ LOGIC ]
+            <span className="whitespace-nowrap">[ CRYPTOGRAPHY ]</span>  //  <span className="whitespace-nowrap">[ OSINT ]</span>  //  <span className="whitespace-nowrap">[ FORENSICS ]</span>  //  <span className="whitespace-nowrap">[ LOGIC ]</span>
           </p>
         </div>
         
         {/* Buttons (Premium Gradient Borders) */}
         <div className="flex flex-col items-center">
           {session ? (
-            <div className="relative group w-full max-w-sm mx-auto mt-4">
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-violet-500 to-cyan-500 rounded-sm blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200 animate-gradient-x"></div>
-              <div className="relative flex flex-col items-center justify-center w-full bg-[#020305]/90 backdrop-blur-xl border border-white/10 rounded-sm p-8 shadow-2xl">
+            <div className="relative group w-full max-w-sm mx-auto mt-4 md:mt-8">
+              <div className="relative flex flex-col items-center justify-center w-full bg-[#020305]/60 backdrop-blur-md border border-cyan-800/30 p-8 rounded-md hover:bg-[#030509]/90 hover:border-cyan-500/40 transition-all duration-700 overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.08)] group/auth">
+                <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent group-hover/auth:via-cyan-400/40 transition-all duration-700"></div>
                 
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-violet-500"></div>
-                
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-[0_0_10px_#4ade80]"></div>
-                  <p className="text-gray-400 text-[10px] tracking-[0.3em] font-mono uppercase">AUTHENTICATED AS</p>
+                <div className="flex items-center justify-center gap-3 mb-3 w-full">
+                  <div className="w-1.5 h-1.5 bg-green-500/80 rounded-full shadow-[0_0_5px_#22c55e]"></div>
+                  <p className="text-gray-400/80 text-[10px] tracking-[0.3em] font-mono uppercase text-center">AUTHENTICATED AS</p>
+                  <div className="w-1.5 h-1.5 opacity-0"></div>
                 </div>
                 
-                <h3 className="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-white tracking-widest uppercase mb-8 drop-shadow-md text-center break-all">
+                <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-white tracking-[0.2em] uppercase mb-8 drop-shadow-sm text-center break-all">
                   {session?.user?.name}
                 </h3>
                 
                 <div className="flex flex-col sm:flex-row gap-4 w-full">
                   <Link 
                     href={(session?.user as any)?.role === "ADMIN" ? "/admin" : "/dashboard"} 
-                    className="flex-1 relative flex items-center justify-center px-6 py-3 bg-cyan-500 hover:bg-cyan-400 transition-colors rounded-sm"
+                    className="flex-1 flex items-center justify-center px-6 py-2.5 bg-cyan-950/30 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 rounded-sm"
                   >
-                    <span className="text-black font-black uppercase tracking-[0.2em] text-xs">DASHBOARD</span>
+                    <span className="font-bold uppercase tracking-[0.2em] text-[10px]">DASHBOARD</span>
                   </Link>
                   
-                  <div className="flex-1 relative flex">
-                    <LogoutButton className="w-full flex items-center justify-center px-6 py-3 bg-transparent border border-gray-700 hover:border-red-500 hover:bg-red-950/30 text-gray-400 hover:text-red-400 font-bold uppercase tracking-[0.2em] text-xs transition-all rounded-sm" />
+                  <div className="flex-1 flex">
+                    <LogoutButton className="w-full flex items-center justify-center px-6 py-2.5 bg-[#020305]/40 border border-gray-800 text-gray-500 hover:border-red-500/50 hover:bg-red-950/20 hover:text-red-400 hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] font-bold uppercase tracking-[0.2em] text-[10px] transition-all duration-300 rounded-sm" />
                   </div>
                 </div>
 
-                <div className="absolute bottom-2 right-3 opacity-20 text-[8px] font-mono text-cyan-500 tracking-widest">SECURE_SESSION_ACTIVE</div>
+                <div className="absolute bottom-2 right-3 opacity-30 text-[8px] font-mono text-cyan-500/50 tracking-[0.2em] uppercase">SECURE_SESSION_ACTIVE</div>
               </div>
             </div>
           ) : (
             <div className="flex flex-col items-center w-full">
               <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto items-center justify-center">
                 <Link href="/register" className="relative group w-full sm:w-auto">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-violet-500 rounded-sm blur opacity-50 group-hover:opacity-100 transition duration-300"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-violet-500 rounded-sm blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
                   <div className="relative flex items-center justify-center px-10 py-4 bg-cyan-500 group-hover:bg-cyan-400 rounded-sm transition-all duration-300">
                     <span className="text-black font-black uppercase tracking-[0.2em] text-sm">Initiate Registration</span>
                   </div>
@@ -283,45 +273,9 @@ export default async function Home() {
         </div>
       </div>
 
-      {/* --- FLOATING PREMIUM TERMINAL WIDGET --- */}
-      <div className="absolute bottom-8 lg:bottom-12 z-20 w-[90%] max-w-3xl hidden md:block">
-        <div className="relative rounded-lg overflow-hidden border border-white/5 bg-[#030509]/60 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,0,0,0.8)]">
-          {/* Glass highlight */}
-          <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-          
-          <div className="flex justify-between items-center px-6 py-3 border-b border-white/5 bg-white/[0.02]">
-            <div className="flex gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/40"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-amber-500/40"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/40"></div>
-            </div>
-            <div className="text-[10px] font-mono text-gray-500 tracking-widest uppercase">Target.Acquired // CH_Core_Node</div>
-          </div>
-          
-          <div className="p-6 font-mono text-[11px] md:text-sm text-cyan-500/70 grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <p className="flex justify-between border-b border-white/5 pb-1">
-                <span className="text-gray-500">SYSTEM.STATUS</span>
-                <span className="text-green-400 text-glow">ONLINE</span>
-              </p>
-              <p className="flex justify-between border-b border-white/5 pb-1">
-                <span className="text-gray-500">LEVELS.LOCKED</span>
-                <span className="text-cyan-400 text-glow">50</span>
-              </p>
-            </div>
-            <div className="space-y-2">
-              <p className="flex justify-between border-b border-white/5 pb-1">
-                <span className="text-gray-500">ENCRYPTION</span>
-                <span className="text-violet-400">AES-256</span>
-              </p>
-              <p className="flex justify-between border-b border-white/5 pb-1">
-                <span className="text-gray-500">NODE.ENTRY</span>
-                <span className="text-cyan-400 animate-pulse">AWAITING_INPUT_</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      
+    
+      <LandingCountdown startTime={event?.startTime || null} status={event?.status} />
 
     </div>
   );

@@ -11,7 +11,7 @@ export default async function LevelPage({ params }: { params: Promise<{ id: stri
   const resolvedParams = await params;
   
   const event = await prisma.event.findFirst();
-  if (event?.status === "NOT_STARTED") {
+  if (event?.status !== "LIVE") {
     return (
       <div className="min-h-screen bg-[#05070B] flex items-center justify-center font-mono">
         <div className="text-center p-8 border border-amber-900/50 bg-amber-950/10">
