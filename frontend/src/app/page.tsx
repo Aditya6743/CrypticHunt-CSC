@@ -203,7 +203,7 @@ export default async function Home() {
         {/* Subtitle */}
         <div className="flex items-center gap-4 mb-8">
           <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-cyan-500/50 hidden sm:block"></div>
-          <h2 className="text-sm md:text-xl text-cyan-400 tracking-[0.4em] font-mono uppercase ">
+          <h2 className="text-xs sm:text-sm md:text-xl text-cyan-400 tracking-[0.2em] sm:tracking-[0.4em] font-mono uppercase whitespace-nowrap">
             <span className="tracking-[0.1em] mr-1">30</span> Levels. One Final Boss.
           </h2>
           <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-cyan-500/50 hidden sm:block"></div>

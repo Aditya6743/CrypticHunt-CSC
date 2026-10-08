@@ -45,7 +45,7 @@ export default function Register() {
   };
 
   return (
-    <div className="min-h-screen bg-[#05070B] py-12 px-4 flex items-center justify-center font-mono relative overflow-hidden">
+    <div className="min-h-screen bg-[#05070B] pt-28 pb-12 px-4 flex flex-col items-center justify-start md:justify-center font-mono relative overflow-y-auto">
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
 
       <div className="z-10 w-full max-w-2xl bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm shadow-[0_0_30px_rgba(6,182,212,0.1)]">
