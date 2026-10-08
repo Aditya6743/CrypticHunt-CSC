@@ -46,7 +46,7 @@ function LoginContent() {
 
   return (
     <>
-      <div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm shadow-[0_0_30px_rgba(6,182,212,0.1)]">
+      <div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm shadow-[0_0_30px_rgba(6,182,212,0.1)] m-auto mt-28 mb-12 md:my-auto">
         <h1 className="text-3xl font-bold text-center text-cyan-400 mb-2">SYSTEM LOGIN</h1>
         <p className="text-center text-gray-500 mb-8 text-sm">AUTHENTICATE TO ACCESS TERMINAL</p>
 
@@ -110,9 +110,9 @@ function LoginContent() {
 
 export default function Login() {
   return (
-    <div className="min-h-screen bg-[#05070B] pt-28 pb-12 px-4 flex flex-col items-center justify-start md:justify-center font-mono relative overflow-y-auto">
+    <div className="min-h-screen bg-[#05070B] flex flex-col px-4 relative overflow-y-auto">
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
-      <Suspense fallback={<div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm text-center text-cyan-500">Loading Terminal...</div>}>
+      <Suspense fallback={<div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm text-center text-cyan-500 m-auto mt-28 mb-12 md:my-auto">Loading Terminal...</div>}>
         <LoginContent />
       </Suspense>
     </div>
