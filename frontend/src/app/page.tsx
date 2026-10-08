@@ -78,9 +78,9 @@ export default async function Home() {
       <div className="absolute inset-0 z-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 150px rgba(1, 2, 4, 0.9)' }}></div>
 
       {/* --- PREMIUM AMBIENT ENHANCEMENTS --- */}
-{/* Ambient Lighting Orbs - Faint Edge Bleed */}
-      <div className="absolute top-[15%] -left-[20vw] w-[45vw] h-[45vw] bg-cyan-600/5 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 12s ease-in-out infinite' }}></div>
-      <div className="absolute bottom-[15%] -right-[20vw] w-[45vw] h-[45vw] bg-violet-600/5 rounded-full blur-[150px] pointer-events-none z-0 mix-blend-screen" style={{ animation: 'float 15s ease-in-out infinite reverse' }}></div>
+{/* Ambient Lighting Orbs - Faint Edge Bleed (iOS Safe) */}
+      <div className="absolute top-[15%] -left-[20vw] w-[45vw] h-[45vw] bg-cyan-600/5 rounded-full blur-[150px] pointer-events-none z-0" style={{ animation: 'float 12s ease-in-out infinite', transform: 'translateZ(0)' }}></div>
+      <div className="absolute bottom-[15%] -right-[20vw] w-[45vw] h-[45vw] bg-violet-600/5 rounded-full blur-[150px] pointer-events-none z-0" style={{ animation: 'float 15s ease-in-out infinite reverse', transform: 'translateZ(0)' }}></div>
       
       
       
@@ -88,20 +88,22 @@ export default async function Home() {
       
       
 
-      {/* Premium Cinematic Perspective Grid */}
+      {/* Premium Cinematic Perspective Grid (Safe for iOS WebKit) */}
       <div 
-        className="absolute bottom-0 left-0 w-full h-[35vh] pointer-events-none z-0 overflow-hidden mix-blend-screen opacity-40"
+        className="absolute bottom-0 left-0 w-full h-[35vh] pointer-events-none z-0 overflow-hidden opacity-30"
         style={{
           maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)'
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
+          transform: 'translateZ(0)'
         }}
       >
         <div className="w-full h-[200%] absolute bottom-0 left-0" style={{
-          backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.4) 1px, transparent 1px)',
           backgroundSize: '50px 50px',
           backgroundPosition: 'center bottom',
           transform: 'perspective(500px) rotateX(60deg) scale(2)',
-          transformOrigin: 'bottom center'
+          transformOrigin: 'bottom center',
+          willChange: 'transform'
         }}></div>
       </div>
 

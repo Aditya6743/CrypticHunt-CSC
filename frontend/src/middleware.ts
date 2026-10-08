@@ -9,7 +9,7 @@ export default withAuth(
     // Auth pages
     const isAuthPage = path.startsWith("/login") || path.startsWith("/register") || path.startsWith("/admin/login");
 
-    if (isAuthPage && token) {
+    if (isAuthPage && token && !token.invalidated) {
       if (token.role === "ADMIN") {
         return NextResponse.redirect(new URL("/admin", req.url));
       }
