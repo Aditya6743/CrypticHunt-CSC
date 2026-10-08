@@ -52,7 +52,7 @@ export default function TopLeftLogo() {
 
       {/* The Logo */}
       <div 
-        className="fixed top-4 md:top-6 left-4 md:left-12 lg:left-16 z-50 mix-blend-screen hover:scale-110 active:scale-110 transition-transform duration-300 origin-center" 
+        className="fixed top-4 md:top-6 left-4 md:left-12 lg:left-16 z-50 hover:scale-110 active:scale-110 transition-transform duration-300 origin-center" 
         style={{ filter: 'contrast(1.2)' }}
       >
         <Link href={pathname === "/leaderboard" || pathname === "/rules" || pathname.startsWith("/level") ? "/dashboard" : (pathname === "/" ? "#" : "/")} onClick={handleClick} className="block w-[50px] h-[50px] md:w-[72px] md:h-[72px] relative">

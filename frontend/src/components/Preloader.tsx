@@ -237,7 +237,7 @@ export default function Preloader() {
         }
       `}} />
 
-      <div className="logo-wrapper mix-blend-screen" style={{ filter: 'contrast(1.2)' }}>
+      <div className="logo-wrapper" style={{ filter: 'contrast(1.2)' }}>
         
         {/* Left Half */}
         <div className="absolute inset-0 logo-left">

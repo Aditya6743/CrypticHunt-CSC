@@ -33,10 +33,6 @@ export default async function Home() {
         @keyframes spin {
           100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
-        .mask-image-gradient {
-          mask-image: linear-gradient(to bottom, transparent, black);
-          -webkit-mask-image: linear-gradient(to bottom, transparent, black);
-        }
         @keyframes line-flow {
           0% { stroke-dashoffset: 1100; }
           100% { stroke-dashoffset: 0; }
@@ -92,13 +88,20 @@ export default async function Home() {
       
       
 
-      {/* Futuristic Perspective Grid */}
-      <div className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none z-0 overflow-hidden opacity-30 mask-image-gradient">
-        <div className="w-full h-[200%] absolute bottom-0" style={{
-          backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.2) 1px, transparent 1px)',
-          backgroundSize: '40px 40px',
-          transform: 'perspective(1000px) rotateX(75deg) translateY(100px)',
-          transformOrigin: 'bottom'
+      {/* Premium Cinematic Perspective Grid */}
+      <div 
+        className="absolute bottom-0 left-0 w-full h-[35vh] pointer-events-none z-0 overflow-hidden mix-blend-screen opacity-40"
+        style={{
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)'
+        }}
+      >
+        <div className="w-full h-[200%] absolute bottom-0 left-0" style={{
+          backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.3) 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+          backgroundPosition: 'center bottom',
+          transform: 'perspective(500px) rotateX(60deg) scale(2)',
+          transformOrigin: 'bottom center'
         }}></div>
       </div>
 
@@ -167,7 +170,7 @@ export default async function Home() {
 
 
       {/* Giant Ethereal Watermark Logo */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[900px] md:h-[900px] opacity-5 pointer-events-none mix-blend-screen flex items-center justify-center">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[900px] md:h-[900px] opacity-10 pointer-events-none flex items-center justify-center">
         <Image src="/logo.png" alt="" width={900} height={900} className="object-contain " />
       </div>
 
@@ -176,7 +179,7 @@ export default async function Home() {
 
 
       {/* --- MAIN HERO CONTENT --- */}
-      <div className="z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center -mt-28 md:-mt-40" style={{ animation: 'float 6s ease-in-out infinite' }}>
+      <div className="z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center -mt-12 sm:-mt-16 md:-mt-40" style={{ animation: 'float 6s ease-in-out infinite' }}>
         
         {/* Top Status Pill */}
         <div className="hidden md:block relative group cursor-default mb-8">
@@ -219,8 +222,8 @@ export default async function Home() {
         {/* Buttons (Premium Gradient Borders) */}
         <div className="flex flex-col items-center">
           {session ? (
-            <div className="relative group w-full max-w-sm mx-auto mt-4 md:mt-8">
-              <div className="relative flex flex-col items-center justify-center w-full bg-[#020305]/60 backdrop-blur-md border border-cyan-800/30 p-8 rounded-md hover:bg-[#030509]/90 hover:border-cyan-500/40 transition-all duration-700 overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.08)] group/auth">
+            <div className="relative group w-full max-w-sm mx-auto mt-2 md:mt-8">
+              <div className="relative flex flex-col items-center justify-center w-full bg-[#020305]/60 backdrop-blur-md border border-cyan-800/30 p-6 sm:p-8 rounded-md hover:bg-[#030509]/90 hover:border-cyan-500/40 transition-all duration-700 overflow-hidden shadow-[0_0_20px_rgba(6,182,212,0.08)] group/auth">
                 <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/10 to-transparent group-hover/auth:via-cyan-400/40 transition-all duration-700"></div>
                 
                 <div className="flex items-center justify-center gap-3 mb-3 w-full">
