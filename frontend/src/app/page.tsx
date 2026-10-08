@@ -179,7 +179,7 @@ export default async function Home() {
 
 
       {/* --- MAIN HERO CONTENT --- */}
-      <div className="z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center -mt-12 sm:-mt-16 md:-mt-40" style={{ animation: 'float 6s ease-in-out infinite' }}>
+      <div className="z-10 w-full max-w-7xl mx-auto px-4 flex flex-col items-center text-center -mt-20 sm:-mt-24 md:-mt-40" style={{ animation: 'float 6s ease-in-out infinite' }}>
         
         {/* Top Status Pill */}
         <div className="hidden md:block relative group cursor-default mb-8">
@@ -210,7 +210,7 @@ export default async function Home() {
         </div>
 
         {/* Description Box */}
-        <div className="mb-14 max-w-2xl mx-auto">
+        <div className="mb-12 md:mb-14 max-w-2xl mx-auto">
           <p className="text-gray-300 text-sm md:text-lg font-light leading-relaxed mb-2">
             The ultimate test of digital supremacy.
           </p>
@@ -268,7 +268,7 @@ export default async function Home() {
                   </div>
                 </Link>
               </div>
-              <Link href="/admin/login" className="mt-8 text-xs md:text-sm font-mono text-gray-500 hover:text-red-500 font-bold transition-colors tracking-[0.2em] uppercase">
+              <Link href="/admin/login" className="mt-4 md:mt-8 text-xs md:text-sm font-mono text-gray-500 hover:text-red-500 font-bold transition-colors tracking-[0.2em] uppercase">
                 [ Admin Access ]
               </Link>
             </div>
