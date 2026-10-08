@@ -27,7 +27,7 @@ function timeAgo(date: Date) {
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+  if (!session) redirect("/login?error=SessionExpired");
 
   const team = await prisma.team.findUnique({
     where: { id: (session?.user as any)?.id },
@@ -36,7 +36,7 @@ export default async function Dashboard() {
       progress: { include: { level: true } }
     }
   });
-  if (!team) redirect("/login");
+  if (!team) redirect("/login?error=SessionExpired");
 
   const event = await prisma.event.findFirst();
   const endTime = event?.endTime || null;

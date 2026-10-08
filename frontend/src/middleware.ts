@@ -8,8 +8,9 @@ export default withAuth(
     
     // Auth pages
     const isAuthPage = path.startsWith("/login") || path.startsWith("/register") || path.startsWith("/admin/login");
+    const hasError = req.nextUrl.searchParams.has("error");
 
-    if (isAuthPage && token && !token.invalidated) {
+    if (isAuthPage && token && !hasError) {
       if (token.role === "ADMIN") {
         return NextResponse.redirect(new URL("/admin", req.url));
       }

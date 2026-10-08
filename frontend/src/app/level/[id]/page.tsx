@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function LevelPage({ params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
-  if (!session) redirect("/login");
+  if (!session) redirect("/login?error=SessionExpired");
 
   const resolvedParams = await params;
   
@@ -29,7 +29,7 @@ export default async function LevelPage({ params }: { params: Promise<{ id: stri
     where: { id: (session.user as any).id },
   });
 
-  if (!team) redirect("/login");
+  if (!team) redirect("/login?error=SessionExpired");
 
   const levelIdParam = parseInt(resolvedParams.id, 10);
   if (isNaN(levelIdParam)) redirect("/dashboard");
