@@ -1,16 +1,28 @@
 "use client";
-import { signIn } from "next-auth/react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn, signOut } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
-export default function Login() {
+import { Suspense } from "react";
+
+function LoginContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
   const [teamId, setTeamId] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+
+  useEffect(() => {
+    if (searchParams.get("error") === "SessionExpired") {
+      setError("Session expired or invalid. Please authenticate again.");
+      // Wipe the ghost cookie so it stops interfering with middleware navigation
+      signOut({ redirect: false });
+    }
+  }, [searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,9 +45,7 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-[#05070B] pt-28 pb-12 px-4 flex flex-col items-center justify-start md:justify-center font-mono relative overflow-y-auto">
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
-
+    <>
       <div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm shadow-[0_0_30px_rgba(6,182,212,0.1)]">
         <h1 className="text-3xl font-bold text-center text-cyan-400 mb-2">SYSTEM LOGIN</h1>
         <p className="text-center text-gray-500 mb-8 text-sm">AUTHENTICATE TO ACCESS TERMINAL</p>
@@ -94,6 +104,17 @@ export default function Login() {
           <div>Lost your keys? <Link href="/forgot-password" className="text-red-400 hover:underline">Reset Password</Link></div>
         </div>
       </div>
+    </>
+  );
+}
+
+export default function Login() {
+  return (
+    <div className="min-h-screen bg-[#05070B] pt-28 pb-12 px-4 flex flex-col items-center justify-start md:justify-center font-mono relative overflow-y-auto">
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'linear-gradient(#05070B 2px, transparent 2px), linear-gradient(90deg, #05070B 2px, transparent 2px)', backgroundSize: '40px 40px', backgroundColor: 'rgba(0, 255, 255, 0.05)' }}></div>
+      <Suspense fallback={<div className="z-10 w-full max-w-md bg-[#0a0e17] border border-cyan-900/50 p-8 rounded-sm text-center text-cyan-500">Loading Terminal...</div>}>
+        <LoginContent />
+      </Suspense>
     </div>
   );
 }
