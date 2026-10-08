@@ -144,24 +144,45 @@ export default async function Dashboard() {
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3"></div>
           
           <div className="flex-1 relative z-10 flex flex-col justify-between">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="px-2 py-1 bg-cyan-950/50 border border-cyan-900 text-cyan-400 text-[10px] font-mono tracking-widest uppercase rounded-sm">CURRENT MISSION</span>
-                <span className="px-2 py-1 bg-white/5 border border-white/10 text-gray-300 text-[10px] font-mono tracking-widest uppercase rounded-sm">LEVEL {team.currentLevel} / {maxLevels}</span>
-              </div>
-              <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-2 uppercase">{currentLevelData?.title || "UNKNOWN PROTOCOL"}</h2>
-              <div className="flex items-center gap-4 text-sm font-mono text-gray-400">
-                <span>{currentLevelData?.category || "CLASSIFIED"}</span>
-                <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
-                <span className="text-cyan-500 font-bold">+{currentLevelData?.points || 0} PTS</span>
-              </div>
-            </div>
-            
-            <div className="mt-8">
-              <Link href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5">
-                CONTINUE CHALLENGE &rarr;
-              </Link>
-            </div>
+            {team.currentLevel > maxLevels ? (
+              <>
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-2 py-1 bg-green-950/50 border border-green-900 text-green-400 text-[10px] font-mono tracking-widest uppercase rounded-sm">MISSION ACCOMPLISHED</span>
+                  </div>
+                  <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-2 uppercase">ALL PROTOCOLS DECRYPTED</h2>
+                  <div className="flex items-center gap-4 text-sm font-mono text-gray-400">
+                    <span>AWAIT FINAL RESULTS</span>
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <div className="inline-flex items-center justify-center px-10 py-4 bg-gray-800 text-gray-500 font-black uppercase tracking-[0.2em] text-sm rounded-sm cursor-not-allowed">
+                    HUNT COMPLETED
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div>
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="px-2 py-1 bg-cyan-950/50 border border-cyan-900 text-cyan-400 text-[10px] font-mono tracking-widest uppercase rounded-sm">CURRENT MISSION</span>
+                    <span className="px-2 py-1 bg-white/5 border border-white/10 text-gray-300 text-[10px] font-mono tracking-widest uppercase rounded-sm">LEVEL {team.currentLevel} / {maxLevels}</span>
+                  </div>
+                  <h2 className="text-4xl sm:text-5xl font-black text-white tracking-tight mb-2 uppercase">{currentLevelData?.title || "UNKNOWN PROTOCOL"}</h2>
+                  <div className="flex items-center gap-4 text-sm font-mono text-gray-400">
+                    <span>{currentLevelData?.category || "CLASSIFIED"}</span>
+                    <span className="w-1 h-1 bg-gray-600 rounded-full"></span>
+                    <span className="text-cyan-500 font-bold">+{currentLevelData?.points || 0} PTS</span>
+                  </div>
+                </div>
+                
+                <div className="mt-8">
+                  <Link href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5">
+                    CONTINUE CHALLENGE &rarr;
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Right side progress visualization */}

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import TimeRemaining from "@/components/TimeRemaining";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function ClientLevel({ level, team, unlockedHints, nextHintPenalty, endTime, haltedAt, isLive }: { level: any, team: any, unlockedHints: any[], nextHintPenalty: number | null, endTime: any, haltedAt: any, isLive: boolean }) {
   const [answer, setAnswer] = useState("");
@@ -17,15 +19,15 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
     setTypewriter("");
     const interval = setInterval(() => {
       setTypewriter(level.description.slice(0, i));
-      i++;
-      if (i > level.description.length) {
+      i += 3;
+      if (i > level.description.length + 3) {
+        setTypewriter(level.description);
         clearInterval(interval);
       }
-    }, 15);
+    }, 10);
     return () => clearInterval(interval);
   }, [level.description]);
 
-  const [hints, setHints] = useState(unlockedHints || []);
   const [hintLoading, setHintLoading] = useState(false);
 
   const requestHint = async () => {
@@ -126,8 +128,9 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                 </div>
               </div>
               
-              <div className="prose prose-invert max-w-none text-gray-300 font-mono text-sm leading-relaxed whitespace-pre-wrap relative z-10 select-text">
-                {typewriter}<span className="animate-pulse text-cyan-400">_</span>
+              <div className="prose prose-invert max-w-none text-gray-300 font-mono text-sm leading-relaxed whitespace-pre-wrap relative z-10 select-text prose-img:rounded-md prose-img:border prose-img:border-cyan-900/50 prose-a:text-cyan-400">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{typewriter}</ReactMarkdown>
+                {typewriter.length === level.description.length && <span className="animate-pulse text-cyan-400">_</span>}
               </div>
             </div>
           </div>
@@ -138,7 +141,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
               <ul className="space-y-4 text-xs md:text-sm text-gray-400">
                 <li className="flex justify-between items-center">
                   <span className="tracking-widest">DIFFICULTY</span>
-                  <span className={`px-2 py-1 ${level.difficulty === 'EASY' ? 'text-green-400 bg-green-900/20' : level.difficulty === 'MEDIUM' ? 'text-amber-400 bg-amber-900/20' : 'text-red-400 bg-red-900/20'} border border-current/30`}>{level.difficulty}</span>
+                  <span className={`px-2 py-1 ${level.difficulty?.toUpperCase() === 'EASY' ? 'text-green-400 bg-green-900/20' : level.difficulty?.toUpperCase() === 'MEDIUM' ? 'text-amber-400 bg-amber-900/20' : 'text-red-400 bg-red-900/20'} border border-current/30 uppercase`}>{level.difficulty}</span>
                 </li>
                 <li className="flex justify-between items-center">
                   <span className="tracking-widest">BOUNTY</span>
@@ -159,6 +162,9 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                   className="w-full bg-black/50 border border-gray-800 px-4 py-3 text-white text-sm focus:outline-none focus:border-cyan-500 focus:bg-black font-mono transition-colors placeholder:text-gray-700"
                   disabled={status === "loading" || status === "success"}
                 />
+                <div className="text-[10px] text-gray-500 text-right tracking-widest uppercase">
+                  FORMAT: {level.answerMatchingMode === 'EXACT' ? <span className="text-amber-500 font-bold">CASE-SENSITIVE</span> : <span className="text-cyan-600">CASE-INSENSITIVE</span>}
+                </div>
                 
                 <button 
                   type="submit" 
@@ -183,7 +189,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
             </div>
             
             <div className="text-center pt-4 space-y-4">
-              {hints.map((h: any, i: number) => (
+              {(unlockedHints || []).map((h: any, i: number) => (
                 <div key={h.id} className="p-4 border border-amber-900/30 bg-amber-900/10 text-amber-500/80 text-xs text-left font-mono">
                   <span className="text-amber-500 font-bold tracking-widest block mb-2">SYSTEM.HINT_0{i+1}_DECRYPTED:</span>
                   {h.content}

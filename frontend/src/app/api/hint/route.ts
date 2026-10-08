@@ -3,10 +3,21 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
+const rateLimit = new Map<string, number>();
+const RATE_LIMIT_MS = 2000;
+
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || (session.user as any).role !== "PARTICIPANT") return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+    const teamIdStr = (session.user as any).id;
+    const lastAttempt = rateLimit.get(teamIdStr);
+    const now = Date.now();
+    if (lastAttempt && now - lastAttempt < RATE_LIMIT_MS) {
+      return NextResponse.json({ error: "Too many requests. Wait a moment." }, { status: 429 });
+    }
+    rateLimit.set(teamIdStr, now);
 
     const body = await req.json();
     const { levelId } = body;
