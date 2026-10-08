@@ -95,11 +95,11 @@ export default function AdminLiveTimer({ event }: { event: any }) {
         <div className="flex flex-col gap-4 w-full md:w-auto bg-[#010103]/80 p-6 border border-white/[0.03] shadow-inner rounded-md">
           <form onSubmit={handleSetTimer} className="flex gap-2 items-center">
             <div className="flex items-center bg-[#05070B] border border-white/[0.05] rounded-sm focus-within:border-cyan-500/50 focus-within:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300">
-              <input type="number" name="hours" defaultValue="1" min="0" max="999" className="w-12 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
+              <input type="number" name="hours" defaultValue="2" min="0" max="999" className="w-12 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
               <span className="text-[9px] text-gray-500 pr-2 font-bold tracking-widest">HR</span>
             </div>
             <div className="flex items-center bg-[#05070B] border border-white/[0.05] rounded-sm focus-within:border-cyan-500/50 focus-within:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-all duration-300">
-              <input type="number" name="minutes" defaultValue="30" min="0" max="59" className="w-12 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
+              <input type="number" name="minutes" defaultValue="0" min="0" max="59" className="w-12 bg-transparent p-2 text-xs font-mono text-white text-center focus:outline-none" />
               <span className="text-[9px] text-gray-500 pr-2 font-bold tracking-widest">MIN</span>
             </div>
             <button disabled={loading} type="submit" className="px-6 py-2.5 bg-cyan-950/30 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] text-[10px] font-bold tracking-[0.2em] uppercase transition-all duration-300 disabled:opacity-50 rounded-sm">
