@@ -125,6 +125,10 @@ export default async function Dashboard() {
         <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-light text-white mb-2 tracking-tight">Welcome back, <span className="font-bold text-cyan-400">{team.teamName}</span></h1>
+            <div className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase mb-2">
+              <span className="text-gray-500">TEAM ID //</span>
+              <span className="text-gray-300 font-bold tracking-widest select-all bg-white/5 px-2 py-0.5 rounded-sm border border-white/10">{team?.teamId || "UNKNOWN"}</span>
+            </div>
             <div className="flex items-center gap-2 text-xs font-mono tracking-widest uppercase">
               <span className="flex items-center justify-center w-2 h-2 rounded-full bg-cyan-500 animate-pulse shadow-[0_0_8px_#06b6d4]"></span>
               <span className="text-cyan-500">LIVE EVENT</span>
@@ -177,7 +181,7 @@ export default async function Dashboard() {
                 </div>
                 
                 <div className="mt-8">
-                  <Link href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-10 py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5">
+                  <Link href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-6 py-3 sm:px-10 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-xs sm:text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5 w-full sm:w-auto">
                     CONTINUE CHALLENGE &rarr;
                   </Link>
                 </div>

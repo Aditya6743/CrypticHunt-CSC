@@ -169,7 +169,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                 <button 
                   type="submit" 
                   disabled={status === "loading" || status === "success" || !answer}
-                  className={`w-full py-4 text-black font-bold uppercase tracking-widest transition-all ${status === "success" ? "bg-green-500" : status === "error" ? "bg-red-500" : "bg-cyan-600 hover:bg-cyan-500 hover:shadow-[0_0_15px_cyan]"} disabled:opacity-50`}
+                  className={`w-full py-3 sm:py-4 text-black font-bold uppercase tracking-widest transition-all ${status === "success" ? "bg-green-500" : status === "error" ? "bg-red-500" : "bg-cyan-600 hover:bg-cyan-500 hover:shadow-[0_0_15px_cyan]"} disabled:opacity-50`}
                 >
                   {status === "loading" ? "UPLOADING..." : status === "success" ? "OVERRIDDEN" : "EXECUTE"}
                 </button>

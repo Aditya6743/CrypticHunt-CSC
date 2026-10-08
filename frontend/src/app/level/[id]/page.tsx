@@ -19,7 +19,7 @@ export default async function LevelPage({ params }: { params: Promise<{ id: stri
         <div className="text-center p-8 border border-amber-900/50 bg-amber-950/10">
           <h1 className="text-3xl text-amber-500 font-bold mb-4 tracking-widest uppercase shadow-amber-500/50 drop-shadow-md">MISSION ON STANDBY</h1>
           <p className="text-amber-400/70 uppercase tracking-widest mb-8">The event is currently paused or pending initialization.</p>
-          <a href="/dashboard" className="inline-block px-8 py-3 border border-amber-800 text-amber-500 hover:bg-amber-900/30 uppercase tracking-widest transition-colors">[ RETURN TO DASHBOARD ]</a>
+          <a href="/dashboard" className="inline-block px-4 py-2 sm:px-8 sm:py-3 text-xs sm:text-base border border-amber-800 text-amber-500 hover:bg-amber-900/30 uppercase tracking-widest transition-colors w-full sm:w-auto">[ RETURN TO DASHBOARD ]</a>
         </div>
       </div>
     );

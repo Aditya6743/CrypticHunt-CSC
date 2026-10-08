@@ -8,24 +8,24 @@ datasource db {
 }
 
 model Team {
-  id            String          @id @default(uuid())
-  teamId        String          @unique
-  teamName      String
-  leaderName    String
-  leaderEmail   String          @unique
-  contactNumber String
-  college       String
-  passwordHash  String
-  createdAt     DateTime        @default(now())
-  status        String          @default("ACTIVE")
-  score         Int             @default(0)
-  currentLevel  Int             @default(1)
-  activeLoginToken String?       // Concurrency Control
-  hintUsages    HintUsage[]
-  progress      LevelProgress[]
-  reports       Report[]
-  submissions   Submission[]
-  members       TeamMember[]
+  id               String          @id @default(uuid())
+  teamId           String          @unique
+  teamName         String
+  leaderName       String
+  leaderEmail      String          @unique
+  contactNumber    String
+  college          String
+  passwordHash     String
+  createdAt        DateTime        @default(now())
+  status           String          @default("ACTIVE")
+  score            Int             @default(0)
+  currentLevel     Int             @default(1)
+  activeLoginToken String?
+  hintUsages       HintUsage[]
+  progress         LevelProgress[]
+  reports          Report[]
+  submissions      Submission[]
+  members          TeamMember[]
 }
 
 model TeamMember {
