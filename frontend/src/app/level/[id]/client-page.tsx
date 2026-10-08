@@ -74,7 +74,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
         setTimeout(() => {
           router.push(`/level/${team.currentLevel + 1}`);
           router.refresh();
-        }, 2500);
+        }, 800);
       } else {
         setStatus("error");
         setMessage("[-] ACCESS DENIED. INVALID CIPHER.");
@@ -200,7 +200,7 @@ export default function ClientLevel({ level, team, unlockedHints, nextHintPenalt
                 <button 
                   onClick={requestHint}
                   disabled={hintLoading}
-                  className="text-[10px] text-gray-600 hover:text-amber-500 disabled:opacity-50 uppercase tracking-widest transition-colors mt-4 block mx-auto"
+                  className="text-xs text-amber-500 hover:text-amber-400 font-bold underline underline-offset-4 disabled:opacity-50 uppercase tracking-widest transition-colors mt-4 block mx-auto"
                 >
                   [ {hintLoading ? "DECRYPTING..." : `Request Next Hint (-${nextHintPenalty} PTS)`} ]
                 </button>
