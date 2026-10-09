@@ -17,12 +17,24 @@ export default function LandingCountdown({ startTime, status }: { startTime: Dat
 
     const updateTimer = () => {
       const now = Date.now();
-      const diff = target - now;
+      let diff = target - now;
 
-      if (diff <= 0) {
+      // If timer hit zero and event is actually LIVE
+      if (diff <= 0 && status === "LIVE") {
         setIsLive(true);
         setTimeLeft({ d: 0, h: 0, m: 0, s: 0 });
         return;
+      }
+
+      // If timer hit zero but event is NOT LIVE yet (Admin hasn't started it)
+      // Automatically push the target forward in 15-minute chunks so it never sits at 0 or prematurely says "LIVE"
+      if (diff <= 0 && status !== "LIVE") {
+        setIsLive(false);
+        let dynamicTarget = target;
+        while (now >= dynamicTarget) {
+          dynamicTarget += 15 * 60 * 1000; // Add 15 minutes
+        }
+        diff = dynamicTarget - now;
       }
 
       setIsLive(false);
