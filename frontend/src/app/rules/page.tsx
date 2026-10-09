@@ -58,8 +58,7 @@ export default function RulesPage() {
             <div className="bg-[#05070B] border border-cyan-900/30 p-4 rounded-sm mt-3 mb-3">
               <ul className="space-y-2 text-gray-400 font-mono text-xs">
                 <li><span className="text-amber-500">LEVELS 01-20:</span> 10% Penalty (-1 Point per hint)</li>
-                <li><span className="text-amber-500">LEVELS 21-29:</span> 20% Penalty (-4 Points per hint)</li>
-                <li><span className="text-amber-500">LEVEL 30 (BOSS):</span> 20% Penalty (-10 Points per hint)</li>
+                <li><span className="text-amber-500">LEVELS 21-30:</span> -4 Points per hint</li>
               </ul>
             </div>
             <p className="text-amber-500/80 bg-amber-900/10 p-3 border border-amber-900/30 rounded-sm">
