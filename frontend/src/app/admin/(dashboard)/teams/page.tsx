@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import TeamRow from "./TeamRow";
+import ExportButtons from "./ExportButtons";
 
 export default async function ManageTeams() {
   const session = await getServerSession(authOptions);
@@ -30,6 +31,8 @@ export default async function ManageTeams() {
             Click a row to expand intel
           </p>
         </div>
+
+        <ExportButtons teams={teams} />
       </div>
 
       <div className="bg-[#0a0e17] border border-cyan-900/50 rounded-sm overflow-x-auto min-h-[50vh] pb-48">
