@@ -239,7 +239,7 @@ export default async function Home() {
                 </h3>
                 
                 <div className="flex flex-col sm:flex-row gap-4 w-full">
-                  <Link 
+                  <Link prefetch={true} 
                     href={(session?.user as any)?.role === "ADMIN" ? "/admin" : "/dashboard"} 
                     className="flex-1 flex items-center justify-center px-6 py-2.5 bg-cyan-950/30 border border-cyan-500/40 text-cyan-400 hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_15px_rgba(6,182,212,0.4)] transition-all duration-300 rounded-sm"
                   >
@@ -257,20 +257,20 @@ export default async function Home() {
           ) : (
             <div className="flex flex-col items-center w-full">
               <div className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto items-center justify-center">
-                <Link href="/register" className="relative group w-full sm:w-auto">
+                <Link prefetch={true} href="/register" className="relative group w-full sm:w-auto">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 to-violet-500 rounded-sm blur opacity-20 group-hover:opacity-40 transition duration-300"></div>
                   <div className="relative flex items-center justify-center px-10 py-4 bg-cyan-500 group-hover:bg-cyan-400 rounded-sm transition-all duration-300">
                     <span className="text-black font-black uppercase tracking-[0.2em] text-sm">Initiate Registration</span>
                   </div>
                 </Link>
-                <Link href="/login" className="relative group w-full sm:w-auto">
+                <Link prefetch={true} href="/login" className="relative group w-full sm:w-auto">
                   <div className="absolute -inset-px bg-gradient-to-r from-white/10 to-white/5 rounded-sm group-hover:from-cyan-500/50 group-hover:to-violet-500/50 transition duration-300"></div>
                   <div className="relative flex items-center justify-center px-10 py-4 bg-[#020305]/80 backdrop-blur-md rounded-sm border border-transparent transition-all duration-300">
                     <span className="text-gray-300 group-hover:text-cyan-300 font-bold uppercase tracking-[0.2em] text-sm transition-colors">Access Terminal</span>
                   </div>
                 </Link>
               </div>
-              <Link href="/admin/login" className="mt-4 md:mt-8 text-xs md:text-sm font-mono text-gray-500 hover:text-red-500 font-bold transition-colors tracking-[0.2em] uppercase">
+              <Link prefetch={true} href="/admin/login" className="mt-4 md:mt-8 text-xs md:text-sm font-mono text-gray-500 hover:text-red-500 font-bold transition-colors tracking-[0.2em] uppercase">
                 [ Admin Access ]
               </Link>
             </div>

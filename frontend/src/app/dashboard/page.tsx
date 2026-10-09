@@ -181,7 +181,7 @@ export default async function Dashboard() {
                 </div>
                 
                 <div className="mt-8">
-                  <Link href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-6 py-3 sm:px-10 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-xs sm:text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5 w-full sm:w-auto">
+                  <Link prefetch={true} href={`/level/${team.currentLevel}`} className="inline-flex items-center justify-center px-6 py-3 sm:px-10 sm:py-4 bg-cyan-500 hover:bg-cyan-400 text-black font-black uppercase tracking-[0.2em] text-xs sm:text-sm transition-all rounded-sm shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] hover:-translate-y-0.5 w-full sm:w-auto">
                     CONTINUE CHALLENGE &rarr;
                   </Link>
                 </div>
@@ -339,7 +339,7 @@ export default async function Dashboard() {
           </div>
 
           {/* Full Leaderboard Button */}
-          <Link href="/leaderboard" className="block w-full text-center py-5 bg-[#0a0e17] hover:bg-cyan-900/20 border border-white/5 hover:border-cyan-500/50 text-sm font-bold font-mono text-gray-400 hover:text-cyan-400 transition-all duration-300 rounded-lg uppercase tracking-[0.2em] shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+          <Link prefetch={true} href="/leaderboard" className="block w-full text-center py-5 bg-[#0a0e17] hover:bg-cyan-900/20 border border-white/5 hover:border-cyan-500/50 text-sm font-bold font-mono text-gray-400 hover:text-cyan-400 transition-all duration-300 rounded-lg uppercase tracking-[0.2em] shadow-lg hover:shadow-[0_0_20px_rgba(6,182,212,0.2)]">
             ACCESS LEADERBOARD &rarr;
           </Link>
           
