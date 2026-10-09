@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { getCachedLevels, getCachedRankings, getCachedEvent } from "@/lib/cachedQueries";
 import Link from "next/link";
 import LogoutButton from "@/components/LogoutButton";
 import TimeRemaining from "@/components/TimeRemaining";
@@ -38,35 +39,14 @@ export default async function Dashboard() {
   });
   if (!team) redirect("/login?error=SessionExpired");
 
-  const event = await prisma.event.findFirst();
+  const event = await getCachedEvent();
   const endTime = event?.endTime || null;
 
-  const allLevels = await prisma.level.findMany({
-    where: { active: true },
-    orderBy: { levelNumber: 'asc' }
-  });
+  const allLevels = await getCachedLevels();
   const maxLevels = allLevels.length > 0 ? allLevels[allLevels.length - 1].levelNumber : 1;
   const currentLevelData = allLevels.find(l => l.levelNumber === team.currentLevel) || allLevels[allLevels.length - 1];
 
-  const allTeams = await prisma.team.findMany({
-    where: { status: "ACTIVE" },
-    orderBy: [
-      { score: "desc" },
-      { currentLevel: "desc" }
-    ],
-    include: {
-      progress: { orderBy: { completedAt: 'desc' }, take: 1 }
-    }
-  });
-
-  allTeams.sort((a, b) => {
-    if (a.score === b.score && a.currentLevel === b.currentLevel) {
-      const aTime = a.progress[0]?.completedAt?.getTime() || 0;
-      const bTime = b.progress[0]?.completedAt?.getTime() || 0;
-      return aTime - bTime;
-    }
-    return 0;
-  });
+  const allTeams = await getCachedRankings();
 
   const rankIndex = allTeams.findIndex(t => t.id === team.id);
   const teamRank = rankIndex !== -1 ? rankIndex + 1 : 0;

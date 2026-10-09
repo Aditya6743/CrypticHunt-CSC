@@ -3,7 +3,7 @@ import Link from "next/link";
 import LiveRefresh from "@/components/LiveRefresh";
 import ParticipantNavbar from "@/components/ParticipantNavbar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 10;
 
 export default async function Leaderboard() {
   const event = await prisma.event.findFirst();
