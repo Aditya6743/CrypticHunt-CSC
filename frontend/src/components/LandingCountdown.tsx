@@ -1,105 +1,41 @@
 "use client";
-import { useEffect, useState } from "react";
 
-export default function LandingCountdown({ startTime, status }: { startTime: Date | null, status: string | undefined }) {
-  const [timeLeft, setTimeLeft] = useState<{ d: number, h: number, m: number, s: number } | null>(null);
-  const [isLive, setIsLive] = useState(false);
-  const [isValidTarget, setIsValidTarget] = useState(true);
+import Link from "next/link";
 
-  useEffect(() => {
-    if (!startTime) {
-      setIsValidTarget(false);
-      setTimeLeft({ d: 0, h: 0, m: 0, s: 0 });
-      return;
-    }
-
-    const target = new Date(startTime).getTime();
-
-    const updateTimer = () => {
-      const now = Date.now();
-      let diff = target - now;
-
-      // If timer hit zero and event is actually LIVE
-      if (diff <= 0 && status === "LIVE") {
-        setIsLive(true);
-        setTimeLeft({ d: 0, h: 0, m: 0, s: 0 });
-        return;
-      }
-
-      // If timer hit zero but event is NOT LIVE yet (Admin hasn't started it)
-      // Automatically push the target forward in 15-minute chunks so it never sits at 0 or prematurely says "LIVE"
-      if (diff <= 0 && status !== "LIVE") {
-        setIsLive(false);
-        let dynamicTarget = target;
-        while (now >= dynamicTarget) {
-          dynamicTarget += 15 * 60 * 1000; // Add 15 minutes
-        }
-        diff = dynamicTarget - now;
-      }
-
-      setIsLive(false);
-      setTimeLeft({
-        d: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        h: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        m: Math.floor((diff / 1000 / 60) % 60),
-        s: Math.floor((diff / 1000) % 60)
-      });
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, [startTime, status]);
-
-  if (isLive) {
-    return (
-      <div className="w-full max-w-2xl flex flex-col items-center absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20 px-4">
-        <h2 className="text-2xl md:text-4xl font-mono font-black text-cyan-400 tracking-[0.5em] uppercase mr-[-0.5em] drop-shadow-[0_0_10px_rgba(6,182,212,0.3)] animate-pulse">
-          CHALLENGE LIVE
-        </h2>
-        <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mt-8"></div>
-      </div>
-    );
-  }
-
-  if (!timeLeft) return null;
-
-  const pad = (num: number) => num.toString().padStart(2, '0');
-  const displayD = isValidTarget ? pad(timeLeft.d) : "--";
-  const displayH = isValidTarget ? pad(timeLeft.h) : "--";
-  const displayM = isValidTarget ? pad(timeLeft.m) : "--";
-  const displayS = isValidTarget ? pad(timeLeft.s) : "--";
-
+export default function LandingCountdown({
+  startTime,
+  status,
+}: {
+  startTime?: Date | null;
+  status?: string | undefined;
+}) {
   return (
-    <div className="w-full max-w-2xl flex flex-col items-center absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20 px-4">
-      
-      <h3 className="text-[10px] md:text-xs font-mono text-cyan-400 tracking-[0.4em] uppercase mb-4 mr-[-0.4em]">
-        CHALLENGE BEGINS IN
-      </h3>
-
-      <div className="flex items-start justify-center gap-1 md:gap-3 w-full">
-        <div className="flex flex-col items-center min-w-[60px] md:min-w-[80px]">
-          <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.15)]">{displayD}</span>
-          <span className="text-[8px] md:text-[9px] text-cyan-700/80 font-mono tracking-[0.25em] uppercase mt-1 md:mt-2">Days</span>
-        </div>
-        <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-900/50 -translate-y-0.5 md:-translate-y-1">:</span>
-        <div className="flex flex-col items-center min-w-[60px] md:min-w-[80px]">
-          <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.15)]">{displayH}</span>
-          <span className="text-[8px] md:text-[9px] text-cyan-700/80 font-mono tracking-[0.25em] uppercase mt-1 md:mt-2">Hours</span>
-        </div>
-        <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-900/50 -translate-y-0.5 md:-translate-y-1">:</span>
-        <div className="flex flex-col items-center min-w-[60px] md:min-w-[80px]">
-          <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.15)]">{displayM}</span>
-          <span className="text-[8px] md:text-[9px] text-cyan-700/80 font-mono tracking-[0.25em] uppercase mt-1 md:mt-2">Minutes</span>
-        </div>
-        <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-900/50 -translate-y-0.5 md:-translate-y-1">:</span>
-        <div className="flex flex-col items-center min-w-[60px] md:min-w-[80px]">
-          <span className="text-2xl md:text-4xl lg:text-4xl font-black font-mono text-cyan-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.15)]">{displayS}</span>
-          <span className="text-[8px] md:text-[9px] text-cyan-700/80 font-mono tracking-[0.25em] uppercase mt-1 md:mt-2">Seconds</span>
-        </div>
+    <div className="w-full max-w-2xl flex flex-col items-center absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 z-20 px-4">
+      <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-cyan-500/30 bg-cyan-950/20 text-cyan-400 text-[10px] md:text-xs font-mono tracking-[0.3em] uppercase mb-2">
+        <span className="w-2 h-2 rounded-full bg-cyan-400/80 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+        TRANSMISSION TERMINATED
       </div>
 
-      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mt-8"></div>
+      <h2 className="text-2xl md:text-4xl font-mono font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-cyan-400 tracking-[0.4em] uppercase mr-[-0.4em] drop-shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+        EVENT CONCLUDED
+      </h2>
+
+      <p className="mt-2 text-[10px] md:text-xs font-mono text-gray-400 tracking-[0.25em] uppercase text-center">
+        Thank you for participating
+      </p>
+
+      <div className="mt-3.5">
+        <Link
+          href="/leaderboard"
+          prefetch={true}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-sm border border-cyan-500/40 bg-cyan-950/30 text-cyan-400 hover:bg-cyan-500 hover:text-black font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase transition-all duration-300 hover:shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+        >
+          <span>View Final Leaderboard</span>
+          <span>→</span>
+        </Link>
+      </div>
+
+      <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent mt-5"></div>
     </div>
   );
 }
